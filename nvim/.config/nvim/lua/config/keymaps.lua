@@ -16,11 +16,34 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
 vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 
-for i = 1, 9, 1 do
-	vim.keymap.set("n", string.format("<A-%s>", i), function()
-		vim.api.nvim_set_current_buf(vim.t.bufs[i])
-	end)
-end
+-- Image Pasting
+vim.keymap.set("n", "<leader>p", "<CMD>PasteImage<CR>", { desc = "Paste clipboard image" })
+
+-- Trouble
+vim.keymap.set("n", "<leader>tr", "<CMD>TroubleToggle lsp_references<CR>", { desc = "LSP References" })
+vim.keymap.set("n", "<leader>td", "<CMD>TroubleToggle lsp_definitions<CR>", { desc = "LSP Definitions" })
+vim.keymap.set("n", "<leader>cd", "<CMD>TroubleToggle<CR>", { desc = "LSP Diagnostics" })
+
+-- Ufo
+vim.keymap.set("n", "zR", "<CMD>lua require('ufo).openAllFolds()<CR>", { desc = "Open all folds" })
+vim.keymap.set("n", "zM", "<CMD>lua require('ufo).closeAllFolds()<CR>", { desc = "Close all folds" })
+
+-- ZenMode
+vim.keymap.set("n", "<leader>zm", require("zen-mode").toggle, { desc = "Toggle ZenMode" })
+
+-- Aerial
+vim.keymap.set("n", "<leader>at", "<CMD>AerialToggle<CR>", { desc = "Toggle Aerial" })
+
+-- Notify
+vim.keymap.set("n", "<ESC>", "<CMD>lua require('notify').dismiss()<CR>", { desc = "Dismiss notification" })
+vim.keymap.set("i", "<ESC>", "<CMD>lua require('notify').dismiss()<CR><ESC>", { desc = "Dismiss notification" })
+
+-- Session
+vim.keymap.set("n", "<leader>ss", "<CMD>SessionManager save_current_session<CR>", { desc = "Save Session" })
+vim.keymap.set("n", "<leader>o", "<CMD>SessionManager load_session<CR>", { desc = "Save Session" })
+
+-- hop
+vim.keymap.set("n", "<leader>j", "<CMD>HopWord<CR>", { desc = "Hop Word" })
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`

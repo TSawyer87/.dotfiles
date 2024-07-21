@@ -45,6 +45,10 @@ return {
 		event = "BufEnter",
 	},
 	{
+		"HakonHarnes/img-clip.nvim",
+		event = "BufEnter",
+	},
+	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VimEnter",
 		config = function()
@@ -181,6 +185,12 @@ return {
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
+	},
+	{
+		"folke/twilight.nvim",
+		cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
+		config = function()
+		end,
 	},
 	{
 		"folke/which-key.nvim",
