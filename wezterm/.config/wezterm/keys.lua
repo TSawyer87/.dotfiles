@@ -1,6 +1,5 @@
 local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
-local act = wezterm.action
 local Keys = {}
 -- you can put the rest of your Wezterm config here
 function Keys.setup(config)
@@ -14,45 +13,9 @@ function Keys.setup(config)
 		-- modifier keys to combine with direction_keys
 		modifiers = {
 			move = "CTRL", -- modifier to use for pane movement, e.g. CTRL+h to move left
-			resize = "SHIFT", -- modifier to use for pane resize, e.g. META+h to resize to the left
+			resize = "META", -- modifier to use for pane resize, e.g. META+h to resize to the left
 		},
 	})
-	function recompute_padding(window)
-		local window_dims = window:get_dimensions()
-		local overrides = window:get_config_overrides() or {}
-
-		if not window_dims.is_full_screen then
-			if not overrides.window_padding then
-				-- not changing anything
-				return
-			end
-			overrides.window_padding = nil
-		else
-			-- Use only the middle 33%
-			local third = math.floor(window_dims.pixel_width / 3)
-			local new_padding = {
-				left = third,
-				right = third,
-				top = 0,
-				bottom = 0,
-			}
-			if overrides.window_padding and new_padding.left == overrides.window_padding.left then
-				-- padding is same, avoid triggering further changes
-				return
-			end
-			overrides.window_padding = new_padding
-		end
-		window:set_config_overrides(overrides)
-	end
-
-	wezterm.on("window-resized", function(window, pane)
-		recompute_padding(window)
-	end)
-
-	wezterm.on("window-config-reloaded", function(window)
-		recompute_padding(window)
-	end)
-
 	config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 	config.disable_default_key_bindings = false
 	config.hyperlink_rules = wezterm.default_hyperlink_rules()
@@ -65,61 +28,115 @@ function Keys.setup(config)
 		},
 	}
 	config.keys = {
-		-- send C-a when pressing C-a twice
-		{ key = "a", mods = "LEADER", action = act.SendKey({ key = "a", mods = "CTRL" }) },
-		{ key = "c", mods = "LEADER", action = act.ActivateCopyMode },
-		-- Pane keybinds
-		{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		-- shift is for when caps lock is on
-		{ key = "|", mods = "LEADER|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
-		{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
-		{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
-		{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-		{ key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
-		{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-		{ key = "s", mods = "LEADER", action = act.RotatePanes("Clockwise") },
-		-- You can make separate keybindings for resizing panes
-		-- but wezterm offers custom "mode" in the name of "KeyTable"
-		{ key = "r", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
-		-- Tab keybindings
-		{ key = "n", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
-		{ key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
-		{ key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
-		{ key = "t", mods = "LEADER", action = act.ShowTabNavigator },
-		-- Key table for moving tabs around
-		{ key = "m", mods = "LEADER", action = act.ActivateKeyTable({ name = "move_tab", one_shot = false }) },
-		-- Lastly, workspace
-		{ key = "w", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
-		{ key = "F11", mods = "NONE", action = act.ToggleFullScreen },
-	}
-	--
-	-- I can use the tab navigator (LDR t), but I also want to quickly navigate tabs with index
-	for i = 1, 9 do
-		table.insert(config.keys, {
-			key = tostring(i),
+		{
+			key = "p",
+			mods = "CTRL",
+			action = wezterm.action.ActivateCommandPalette,
+		},
+		{
+			key = "h",
 			mods = "LEADER",
-			action = act.ActivateTab(i - 1),
-		})
-	end
-	config.key_tables = {
-		resize_pane = {
-			{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
-			{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
-			{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-			{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
-			{ key = "Escape", action = "PopKeyTable" },
-			{ key = "Enter", action = "PopKeyTable" },
+			action = wezterm.action.ActivatePaneDirection("Left"),
 		},
-		move_tab = {
-			{ key = "h", action = act.MoveTabRelative(-1) },
-			{ key = "j", action = act.MoveTabRelative(-1) },
-			{ key = "k", action = act.MoveTabRelative(1) },
-			{ key = "l", action = act.MoveTabRelative(1) },
-			{ key = "Escape", action = "PopKeyTable" },
-			{ key = "Enter", action = "PopKeyTable" },
+		{
+			key = "l",
+			mods = "LEADER",
+			action = wezterm.action.ActivatePaneDirection("Right"),
 		},
+		{
+			key = "k",
+			mods = "LEADER",
+			action = wezterm.action.ActivatePaneDirection("Up"),
+		},
+		{
+			key = "j",
+			mods = "LEADER",
+			action = wezterm.action.ActivatePaneDirection("Down"),
+		},
+		{
+			key = "LeftArrow",
+			mods = "LEADER",
+			action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
+		},
+		{
+			key = "DownArrow",
+			mods = "LEADER",
+			action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
+		},
+		{
+			key = "UpArrow",
+			mods = "LEADER",
+			action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+		},
+		{
+			key = "RightArrow",
+			mods = "LEADER",
+			action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
+		},
+		{
+			key = [[\]],
+			mods = "LEADER",
+			action = wezterm.action({
+				SplitHorizontal = { domain = "CurrentPaneDomain" },
+			}),
+		},
+		{
+			key = [[|]],
+			mods = "LEADER",
+			action = wezterm.action.SplitPane({
+				top_level = true,
+				direction = "Right",
+				size = { Percent = 50 },
+			}),
+		},
+		{
+			key = [[-]],
+			mods = "LEADER",
+			action = wezterm.action({
+				SplitVertical = { domain = "CurrentPaneDomain" },
+			}),
+		},
+		{
+			key = [[_]],
+			mods = "LEADER",
+			action = wezterm.action.SplitPane({
+				top_level = true,
+				direction = "Down",
+				size = { Percent = 50 },
+			}),
+		},
+		{
+			key = "n",
+			mods = "ALT",
+			action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
+		},
+		{
+			key = "Q",
+			mods = "ALT",
+			action = wezterm.action({ CloseCurrentTab = { confirm = false } }),
+		},
+		{ key = "q", mods = "ALT", action = wezterm.action.CloseCurrentPane({ confirm = false }) },
+		{ key = "F11", mods = "", action = wezterm.action.ToggleFullScreen },
+		{ key = "[", mods = "ALT", action = wezterm.action({ ActivateTabRelative = -1 }) },
+		{ key = "]", mods = "ALT", action = wezterm.action({ ActivateTabRelative = 1 }) },
+		{ key = "{", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(-1) },
+		{ key = "}", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(1) },
+		{ key = "y", mods = "ALT", action = wezterm.action.ActivateCopyMode },
+		{ key = "c", mods = "CTRL|SHIFT", action = wezterm.action({ CopyTo = "Clipboard" }) },
+		{ key = "v", mods = "CTRL|SHIFT", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+		{ key = "=", mods = "CTRL", action = wezterm.action.IncreaseFontSize },
+		{ key = "-", mods = "CTRL", action = wezterm.action.DecreaseFontSize },
+		{ key = "1", mods = "ALT", action = wezterm.action({ ActivateTab = 0 }) },
+		{ key = "2", mods = "ALT", action = wezterm.action({ ActivateTab = 1 }) },
+		{ key = "3", mods = "ALT", action = wezterm.action({ ActivateTab = 2 }) },
+		{ key = "4", mods = "ALT", action = wezterm.action({ ActivateTab = 3 }) },
+		{ key = "5", mods = "ALT", action = wezterm.action({ ActivateTab = 4 }) },
+		{ key = "6", mods = "ALT", action = wezterm.action({ ActivateTab = 5 }) },
+		{ key = "7", mods = "ALT", action = wezterm.action({ ActivateTab = 6 }) },
+		{ key = "8", mods = "ALT", action = wezterm.action({ ActivateTab = 7 }) },
+		{ key = "9", mods = "ALT", action = wezterm.action({ ActivateTab = 8 }) },
 	}
 end
+
 -- return keys and mouse
 return Keys

@@ -1,9 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -30,17 +30,17 @@ WORDCHARS=${WORDCHARS//\/} # Don't consider certain characters part of the word
 PROMPT_EOL_MARK=''
 
 # configure key keybindings
-# bindkey ' ' magic-space  # do history expansion on space
-# bindkey '^U' backward-kill-line  # ctrl + U
-# bindkey '^[[3;5~' kill-word      # ctrl + Supr
-# bindkey '^[[3~' delete-char      # delete
-# bindkey '^[[1;5C' forward-word   # ctrl + cursor right
-# bindkey '^[[1;5D' backward-word  # ctrl + cursor left
-# bindkey '^[[5~' beginning-of-buffer-or-history  # PgUp
-# bindkey '^[[6~' end-of-buffer-or-history  # PgUp/PgDown
-# bindkey '^[[H' beginning-of-line    # home
-# bindkey '^[[F' end-of-line       # end
-# bindkey '^[[Z' undo              # shift + tab undo last action
+bindkey ' ' magic-space  # do history expansion on space
+bindkey '^U' backward-kill-line  # ctrl + U
+bindkey '^[[3;5~' kill-word      # ctrl + Supr
+bindkey '^[[3~' delete-char      # delete
+bindkey '^[[1;5C' forward-word   # ctrl + cursor right
+bindkey '^[[1;5D' backward-word  # ctrl + cursor left
+bindkey '^[[5~' beginning-of-buffer-or-history  # PgUp
+bindkey '^[[6~' end-of-buffer-or-history  # PgUp/PgDown
+bindkey '^[[H' beginning-of-line    # home
+bindkey '^[[F' end-of-line       # end
+bindkey '^[[Z' undo              # shift + tab undo last action
 
 # enable completion features
 autoload -Uz compinit
@@ -114,19 +114,19 @@ sudo
 fast-syntax-highlighting
 # zsh-autocomplete
 zsh-syntax-highlighting
-# zsh-autosuggestions
+zsh-autosuggestions
 zsh-vi-mode
 # autojump
-# colorize
+colorize
 fzf
 fzf-tab
 fancy-ctrl-z
 rust
 # starship
 )
-# ZSH_COLORIZE_TOOL=chroma
-# ZSH_COLORIZE_STYLE="colorful"
-# ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
+ZSH_COLORIZE_TOOL=chroma
+ZSH_COLORIZE_STYLE="colorful"
+ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 
 # Fancy Ctrl-Z
 fancy-ctrl-z () {
@@ -180,7 +180,7 @@ export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$P
 alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 source "$HOME/.cargo/env"
 fastfetch
-# export FPATH="~/.eza_completions/completions/zsh:$FPATH"
+export FPATH="~/.eza_completions/completions/zsh:$FPATH"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -193,11 +193,11 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # # enable auto-suggestions based on the history
-# if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-#   . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#   # change suggestion color
-#   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#999"
-# fi
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # change suggestion color
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#999"
+fi
 
 # enable command-not-found if installed
 if [ -e /etc/zsh_command_not_found ]; then

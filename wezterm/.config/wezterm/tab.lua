@@ -73,6 +73,7 @@ local function get_process(tab)
 			{ Text = "" },
 		},
 	}
+
 	local process_name = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
 	if not process_name then
 		process_name = "zsh"
@@ -111,7 +112,7 @@ function Tab.setup(config)
 	config.use_fancy_tab_bar = false
 	config.show_new_tab_button_in_tab_bar = true
 	config.tab_max_width = 50
-	config.hide_tab_bar_if_only_one_tab = false
+	config.hide_tab_bar_if_only_one_tab = true
 
 	wezterm.on("format-tab-title", function(tab)
 		return wezterm.format({
