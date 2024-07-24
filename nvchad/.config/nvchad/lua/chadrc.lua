@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "catppuccin",
+	theme = "solarized_dark",
   transparency = true,
 
   statusline = {

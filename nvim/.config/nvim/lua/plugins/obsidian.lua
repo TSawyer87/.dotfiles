@@ -274,7 +274,7 @@ return {
 		-- Replace the above with this if you don't have a patched font:
 		-- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
 		reference_text = { hl_group = "ObsidianRefText" },
-		highlight_text = { hl_group = "ObsidianHighlightText" },
+		dont_highlight_text = { hl_group = "ObsidianHighlightText" },
 		tags = { hl_group = "ObsidianTag" },
 		block_ids = { hl_group = "ObsidianBlockID" },
 		hl_groups = {

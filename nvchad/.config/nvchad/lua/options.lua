@@ -19,7 +19,7 @@ o.wrap = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 
 -- Enable break indent
 o.breakindent = true
@@ -30,7 +30,7 @@ o.undofile = true
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 o.ignorecase = true
 o.smartcase = true
-o.filetype = 'on'
+o.filetype = "on"
 
 -- Keep signcolumn on by default
 o.signcolumn = "yes"

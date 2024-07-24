@@ -41,4 +41,16 @@ return {
       },
     },
   },
+  -- search & replace
+  {
+    'MagicDuck/grug-far.nvim',
+    lazy = false,
+    config = function()
+      require('grug-far').setup({
+      });
+    end
+  },
+  { 'Bekaboo/deadcolumn.nvim',
+lazy = false,
+  }
 }

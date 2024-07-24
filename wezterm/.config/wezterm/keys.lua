@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+local act = wezterm.action
 local Keys = {}
 -- you can put the rest of your Wezterm config here
 function Keys.setup(config)
@@ -13,7 +14,7 @@ function Keys.setup(config)
 		-- modifier keys to combine with direction_keys
 		modifiers = {
 			move = "CTRL", -- modifier to use for pane movement, e.g. CTRL+h to move left
-			resize = "META", -- modifier to use for pane resize, e.g. META+h to resize to the left
+			resize = "SHIFT", -- modifier to use for pane resize, e.g. META+h to resize to the left
 		},
 	})
 	config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
@@ -30,13 +31,33 @@ function Keys.setup(config)
 	config.keys = {
 		{
 			key = "p",
-			mods = "CTRL",
+			mods = "CTRL|SHIFT",
 			action = wezterm.action.ActivateCommandPalette,
 		},
 		{
 			key = "h",
 			mods = "LEADER",
 			action = wezterm.action.ActivatePaneDirection("Left"),
+		},
+		{
+			key = "c",
+			mods = "LEADER",
+			action = act.ActivateCopyMode,
+		},
+		{
+			key = "s",
+			mods = "LEADER",
+			action = act.RotatePanes("Clockwise"),
+		},
+		{
+			key = "x",
+			mods = "LEADER",
+			action = act.CloseCurrentPane({ confirm = true }),
+		},
+		{
+			key = "z",
+			mods = "LEADER",
+			action = act.TogglePaneZoomState,
 		},
 		{
 			key = "l",
@@ -135,8 +156,34 @@ function Keys.setup(config)
 		{ key = "7", mods = "ALT", action = wezterm.action({ ActivateTab = 6 }) },
 		{ key = "8", mods = "ALT", action = wezterm.action({ ActivateTab = 7 }) },
 		{ key = "9", mods = "ALT", action = wezterm.action({ ActivateTab = 8 }) },
+		{ key = "r", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
+		{ key = "n", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+	}
+	for i = 1, 9 do
+		table.insert(config.keys, {
+			key = tostring(i),
+			mods = "LEADER",
+			action = act.ActivateTab(i - 1),
+		})
+	end
+	config.key_tables = {
+		resize_pane = {
+			{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+			{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+			{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
+			{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
+			{ key = "Escape", action = "PopKeyTable" },
+			{ key = "Enter", action = "PopKeyTable" },
+		},
+		move_tab = {
+			{ key = "h", action = act.MoveTabRelative(-1) },
+			{ key = "j", action = act.MoveTabRelative(-1) },
+			{ key = "k", action = act.MoveTabRelative(1) },
+			{ key = "l", action = act.MoveTabRelative(1) },
+			{ key = "Escape", action = "PopKeyTable" },
+			{ key = "Enter", action = "PopKeyTable" },
+		},
 	}
 end
-
 -- return keys and mouse
 return Keys

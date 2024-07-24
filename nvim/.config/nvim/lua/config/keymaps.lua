@@ -29,7 +29,7 @@ vim.keymap.set("n", "zR", "<CMD>lua require('ufo).openAllFolds()<CR>", { desc = 
 vim.keymap.set("n", "zM", "<CMD>lua require('ufo).closeAllFolds()<CR>", { desc = "Close all folds" })
 
 -- ZenMode
-vim.keymap.set("n", "<leader>zm", require("zen-mode").toggle, { desc = "Toggle ZenMode" })
+-- vim.keymap.set("n", "<leader>zm", require("zen-mode").toggle, { desc = "Toggle ZenMode" })
 
 -- Aerial
 vim.keymap.set("n", "<leader>at", "<CMD>AerialToggle<CR>", { desc = "Toggle Aerial" })

@@ -44,6 +44,7 @@ return {
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 			luasnip.config.setup({})
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 			cmp.setup({
 				snippet = {
@@ -51,7 +52,28 @@ return {
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				completion = { completeopt = "menu,menuone,noinsert" },
+				completion = {
+					keyword_length = 1,
+					completeopt = "menu,menuone,noinsert, noselect",
+				},
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+				formatting = {
+					fields = { "abbr", "kind", "menu" },
+					format = require("lspkind").cmp_format({
+						maxwidth = 50,
+						ellipsis_char = "...",
+						mode = "symbol_text",
+						symbol_map = { Copilot = "" },
+					}),
+				},
 
 				-- For an understanding of why these mappings were
 				-- chosen, you will need to read `:help ins-completion`
@@ -74,9 +96,9 @@ return {
 
 					-- If you prefer more traditional completion keymaps,
 					-- you can uncomment the following lines
-					--['<CR>'] = cmp.mapping.confirm { select = true },
-					--['<Tab>'] = cmp.mapping.select_next_item(),
-					--['<S-Tab>'] = cmp.mapping.select_prev_item(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping.select_next_item(),
+					["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
 					-- Manually trigger a completion from nvim-cmp.
 					--  Generally you don't need this, because nvim-cmp will display
@@ -107,10 +129,11 @@ return {
 				}),
 				sources = {
 					{ name = "nvim_lsp" },
+					{ name = "nvim_lua" },
 					{ name = "luasnip" },
-					{ name = "path" },
+					{ name = "path", option = { trailing_slash = true } },
 					{ name = "buffer" },
-          { name = "codeium" },
+					{ name = "codeium" },
 				},
 			})
 		end,

@@ -23,9 +23,10 @@ end
 -- Configurations
 --
 -- Set the Kanagawa theme as the default
-config.colors = kanagawa
--- config.colors = colors
+-- config.colors = kanagawa
+config.colors = colors
 config.color_scheme = "tokyonight_night"
+-- config.color_scheme = "nightfox"
 config.warn_about_missing_glyphs = true
 config.enable_scroll_bar = false
 config.window_padding = {
@@ -41,7 +42,7 @@ config.window_background_opacity = 0.9
 config.text_background_opacity = 0.6
 config.animation_fps = 60
 
-config.initial_rows = 40
+config.initial_rows = 60
 config.initial_cols = 120
 
 config.command_palette_rows = 14

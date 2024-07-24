@@ -112,7 +112,7 @@ plugins=(
 git
 sudo
 fast-syntax-highlighting
-# zsh-autocomplete
+ zsh-autocomplete
 zsh-syntax-highlighting
 zsh-autosuggestions
 zsh-vi-mode
@@ -153,21 +153,22 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi="nvim"
+alias vc="nvim"
 alias py="python3"
 alias u="sudo dnf -y update"
 alias cat="bat"
-alias ld='eza -lD'
-alias lf='eza -lf --color=always | grep -v /'
-alias lh='eza -al --group-directories-first'
-alias ls="ls --color=auto"
+alias ld='eza -lD' -- list directories
+alias lf='eza -lf --color=always | grep -v /' -- list files
+alias lh='eza -al --group-directories-first' -- list hidden
+alias ls="eza -alF --color=always --sort=size | grep -v /" -- list only files sorted by size
 alias lS='eza -alf --color=always --sort=size | grep -v /'
-alias lt='eza -al --sort=modified'
+alias lt='eza -al --sort=modified' -- list only files sorted by last modified
 alias lg="lazygit"
 alias obsidian="flatpak run md.obsidian.Obsidian"
 alias vz="NVIM_APPNAME=nvim-lazyvim nvim"
-alias vc="NVIM_APPNAME=nvchad nvim"
+alias vi="NVIM_APPNAME=nvchad nvim"
 alias va="NVIM_APPNAME=astrovim nvim"
+alias cv="NVIM_APPNAME=CyberVim nvim"
 alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 
 #This makes Tab and ShiftTab, when pressed on the command line, cycle through listed completions, without changing what's listed in the menu:

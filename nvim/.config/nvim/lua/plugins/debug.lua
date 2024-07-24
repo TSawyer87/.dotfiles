@@ -1,5 +1,5 @@
 return {
-	-- NOTE: Yes, you can install new plugins here!
+	-- NOTE: Yes, you can install new foobar here!
 	"mfussenegger/nvim-dap",
 	-- NOTE: And you can specify dependencies as well
 	dependencies = {

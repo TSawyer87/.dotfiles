@@ -5,10 +5,9 @@ return {
 	"linrongbin16/lsp-progress.nvim", -- LSP progress
 	"nvim-tree/nvim-web-devicons",
 	-- "nvim-lualine/lualine.nvim", -- Fancier statusline
-	"mrjones2014/smart-splits.nvim",
 	"kdheepak/lazygit.nvim",
 	"kevinhwang91/promise-async",
-	"nvim-lua/plenary.nvim",
+	{ "nvim-lua/plenary.nvim", lazy = true },
 	{
 		"stevearc/aerial.nvim",
 		cmd = "AerialToggle",
@@ -31,7 +30,7 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "VimEnter",
+		event = "VeryLazy",
 		config = function() end,
 	},
 	{
@@ -45,27 +44,23 @@ return {
 		event = "BufEnter",
 	},
 	{
-		"HakonHarnes/img-clip.nvim",
-		event = "BufEnter",
-	},
-	{
 		"lukas-reineke/indent-blankline.nvim",
-		event = "VimEnter",
+		event = "VeryLazy",
 		config = function()
 			require("ibl").setup()
 		end,
 	},
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		event = "VimEnter",
-		branch = "v3.x",
-		config = function() end,
-		dependencies = {
-			{ "neovim/nvim-lspconfig" },
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-		},
-	},
+	-- {
+	-- 	"VonHeikemen/lsp-zero.nvim",
+	-- 	event = "VimEnter",
+	-- 	branch = "v3.x",
+	-- 	config = function() end,
+	-- 	dependencies = {
+	-- 		{ "neovim/nvim-lspconfig" },
+	-- 		{ "williamboman/mason.nvim" },
+	-- 		{ "williamboman/mason-lspconfig.nvim" },
+	-- 	},
+	-- },
 	{
 		"folke/neodev.nvim",
 		event = "VeryLazy",
@@ -89,22 +84,32 @@ return {
 		dependencies = { { "MunifTanjim/nui.nvim" } },
 	},
 	{
-		"nvimtools/none-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function() end,
-		dependencies = {
-			{
-				"jay-babu/mason-null-ls.nvim",
-				cmd = { "NullLsInstall", "NullLsUninstall" },
-				config = function() end,
-			},
-		},
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		vscode = true,
+		---@type Flash.Config
+		opts = {},
+  -- stylua: ignore
+  keys = {
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  },
 	},
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function() end,
-	},
+	-- {
+	-- 	"nvimtools/none-ls.nvim",
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	config = function() end,
+	-- 	dependencies = {
+	-- 		{
+	-- 			"jay-babu/mason-null-ls.nvim",
+	-- 			cmd = { "NullLsInstall", "NullLsUninstall" },
+	-- 			config = function() end,
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -150,14 +155,13 @@ return {
 	},
 	{
 		"kylechui/nvim-surround",
-		event = "VimEnter",
+		event = "VeryLazy",
 		config = function() end,
 	},
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "HiPhish/rainbow-delimiters.nvim" },
 	{
 		"kevinhwang91/nvim-ufo",
-		event = "VimEnter",
+		event = "VeryLazy",
 		dependencies = "kevinhwang91/promise-async",
 		config = function()
 			require("ufo").setup()
@@ -165,6 +169,22 @@ return {
 	},
 	{
 		"navarasu/onedark.nvim",
+	},
+	{
+		"folke/tokyonight.nvim",
+	},
+	{
+		"cappyzawa/trim.nvim",
+		event = "VeryLazy",
+		config = function() end,
+		opts = {},
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		-- Optional dependency
+		dependencies = { "hrsh7th/nvim-cmp" },
+		config = function() end,
 	},
 	{ "nvim-lua/plenary.nvim" },
 	{
@@ -178,19 +198,24 @@ return {
 		config = function() end,
 	},
 	{
+		"MagicDuck/grug-far.nvim",
+		config = function() end,
+	},
+	{
 		"akinsho/toggleterm.nvim",
 		event = "VeryLazy",
 		config = function() end,
 	},
 	{
 		"folke/trouble.nvim",
+		event = "VeryLazy",
 		cmd = { "TroubleToggle", "Trouble" },
 	},
 	{
 		"folke/twilight.nvim",
+		event = "VeryLazy",
 		cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-		config = function()
-		end,
+		config = function() end,
 	},
 	{
 		"folke/which-key.nvim",
@@ -219,12 +244,16 @@ return {
 	-- GoLang
 	{
 		"ray-x/go.nvim",
-		dependencies = { "ray-x/guihua.lua" },
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
 		config = function()
 			require("go").setup()
 		end,
 		event = { "CmdlineEnter" },
 		ft = { "go", "gomod" },
-		lazy = true,
+		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 	},
 }
