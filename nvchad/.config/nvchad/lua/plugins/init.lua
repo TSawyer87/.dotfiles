@@ -1,12 +1,31 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = 'BufWritePre', -- uncomment for format on save
     config = function()
       require "configs.conform"
     end,
   },
 
+  {
+    "folke/noice.nvim",
+    event = "VimEnter",
+    config = function()
+      require("configs.noice")
+    end,
+    dependencies = { { "MunifTanjim/nui.nvim" } },
+  },
+  {
+    "folke/twilight.nvim",
+    cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
+    config = function()
+      require("configs.twilight")
+    end,
+  },
+  {
+		"rcarriga/nvim-notify",
+		lazy = false,
+	},
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -50,7 +69,8 @@ return {
       });
     end
   },
-  { 'Bekaboo/deadcolumn.nvim',
-lazy = false,
+  {
+    'Bekaboo/deadcolumn.nvim',
+    lazy = false,
   }
 }

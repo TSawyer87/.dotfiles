@@ -1,1 +1,0 @@
-return { "oberblastmeister/neuron.nvim"}
