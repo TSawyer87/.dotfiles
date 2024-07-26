@@ -4,19 +4,19 @@ local act = wezterm.action
 local Keys = {}
 -- you can put the rest of your Wezterm config here
 function Keys.setup(config)
-	smart_splits.apply_to_config(config, {
+	-- smart_splits.apply_to_config(config, {
 		-- the default config is here, if you'd like to use the default keys,
 		-- you can omit this configuration table parameter and just use
-		-- smart_splits.apply_to_config(config)
+		smart_splits.apply_to_config(config)
 
 		-- directional keys to use in order of: left, down, up, right
-		direction_keys = { "h", "j", "k", "l" },
+		-- direction_keys = { "h", "j", "k", "l" },
 		-- modifier keys to combine with direction_keys
-		modifiers = {
-			move = "CTRL", -- modifier to use for pane movement, e.g. CTRL+h to move left
-			resize = "SHIFT", -- modifier to use for pane resize, e.g. META+h to resize to the left
-		},
-	})
+		-- modifiers = {
+		-- 	move = "CTRL", -- modifier to use for pane movement, e.g. CTRL+h to move left
+		-- 	resize = "SHIFT", -- modifier to use for pane resize, e.g. META+h to resize to the left
+		-- },
+	-- })
 	config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 	config.disable_default_key_bindings = false
 	config.hyperlink_rules = wezterm.default_hyperlink_rules()
