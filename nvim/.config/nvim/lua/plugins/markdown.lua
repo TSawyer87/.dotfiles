@@ -18,5 +18,5 @@ return {
 			-- configuration here or empty for defaults
 		},
 	},
-	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+	{ "ellisonleao/glow.nvim", ft = "markdown", config = true, cmd = "Glow" },
 }
