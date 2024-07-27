@@ -3,7 +3,7 @@ require("lint").linters_by_ft = {
 	zsh = { "zsh" },
 	lua = { "luacheck" },
   yaml = { "yamllint" },
-  python = { "ruff" },
+  python = { "pylint" },
   config = function(_, opts)
     local M = {}
 
@@ -72,6 +72,10 @@ require("lint").linters_by_ft = {
       callback = M.debounce(100, M.lint),
     })
   end,
+  -- Install Pylint
+require('mason').setup({
+  ensure_installed = { 'pylint' },
+})
 }
 
 

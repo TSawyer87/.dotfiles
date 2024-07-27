@@ -1,5 +1,6 @@
 return {
   "folke/which-key.nvim",
+  -- event = "VimEnter",
   event = "VeryLazy",
   opts_extend = { "spec" },
   opts = {
@@ -15,15 +16,16 @@ return {
             return require("which-key.extras").expand.buf()
           end,
         },
-        { "<leader>c", group = "code" },
+        { "<leader>c", group = "[C]ode" },
         { "<leader>f", group = "file/find" },
-        { "<leader>g", group = "git" },
-        { "<leader>l", group = "lazygit" },
-        { "<leader>gh", group = "hunks" },
-        { "<leader>q", group = "quit/session" },
+        { "<leader>g", group = "[G]it" },
+        { "<leader>l", group = "[L]azygit" },
+        { "<leader>gh", group = "[h]unks" },
+        { "<leader>q", group = "[Q]uit/session" },
         { "<leader>/", group = "comment/uncomment" },
-        { "<leader>n", group = "obsidian" },
-        { "<leader>s", group = "search" },
+        { "<leader>n", group = "Obsidia[n]" },
+        { "<leader>s", group = "[S]earch" },
+        { "<leader>t", group = "[T]oggle" },
         { "<leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
         {
           "<leader>w",

@@ -1,9 +1,9 @@
 return {
-  -- {
-  --   "EdenEast/nightfox.nvim",
-  --   priority = 1000,
-  --   config = true,
-  -- },
+  {
+    "EdenEast/nightfox.nvim",
+    priority = 1000,
+    config = true,
+  },
   -- alpha startscreen
   {
     "goolord/alpha-nvim",
@@ -40,11 +40,11 @@ return {
   -- oil file explorer
   {
     "stevearc/oil.nvim",
-    -- lazy = true,
+    lazy = true,
     opts = {},
     -- Optional dependencies
-    -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
 
   -- icons, for UI related plugins
@@ -86,8 +86,8 @@ return {
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    -- event = "VeryLazy",
-    ft = "markdown",
+    event = "VeryLazy",
+    -- ft = "markdown",
     config = function()
       require("plugins.configs.ufo")
     end,
@@ -238,6 +238,9 @@ return {
       "mfussenegger/nvim-dap",
     },
     lazy = true,
+    config = function()
+      require("plugins.configs.vimkind")
+    end,
   },
   {
     "mfussenegger/nvim-lint",

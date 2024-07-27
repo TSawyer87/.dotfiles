@@ -1,49 +1,55 @@
 require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
-	},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "markdown" },
+  },
   incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
-				},
-			},
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
+  },
   textsubjects = {
-		enable = true,
-		disable = disable,
-		prev_selection = ",",
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-			["i;"] = "textsubjects-container-inner",
-		},
-	},
-			textobjects = {
-				move = {
-					enable = true,
-					goto_next_start = {
-						["]f"] = "@function.outer",
-						["]c"] = "@class.outer",
-						["]a"] = "@parameter.inner",
-					},
-					goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-					goto_previous_start = {
-						["[f"] = "@function.outer",
-						["[c"] = "@class.outer",
-						["[a"] = "@parameter.inner",
-					},
-					goto_previous_end = {
-						["[F"] = "@function.outer",
-						["[C"] = "@class.outer",
-						["[A"] = "@parameter.inner",
-					},
-				},
-			},
-	autotag = { enable = true },
-	rainbow = { enable = true, disable = { "html" }, extended_mode = false },
+    enable = true,
+    -- disable = disable,
+    prev_selection = ",",
+    keymaps = {
+      ["."] = "textsubjects-smart",
+      [";"] = "textsubjects-container-outer",
+      ["i;"] = "textsubjects-container-inner",
+    },
+  },
+  textobjects = {
+    move = {
+      enable = true,
+      goto_next_start = {
+        ["]f"] = "@function.outer",
+        ["]c"] = "@class.outer",
+        ["]a"] = "@parameter.inner",
+      },
+      goto_next_end = {
+        ["]F"] = "@function.outer",
+        ["]C"] = "@class.outer",
+        ["]A"] = "@parameter.inner",
+      },
+      goto_previous_start = {
+        ["[f"] = "@function.outer",
+        ["[c"] = "@class.outer",
+        ["[a"] = "@parameter.inner",
+      },
+      goto_previous_end = {
+        ["[F"] = "@function.outer",
+        ["[C"] = "@class.outer",
+        ["[A"] = "@parameter.inner",
+      },
+    },
+  },
+  autotag = { enable = true },
+  rainbow = { enable = true, disable = { "html" }, extended_mode = false },
+  endwise = { enable = true },
 })
 
 local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
