@@ -23,8 +23,8 @@ end
 -- Configurations
 --
 -- Set the Kanagawa theme as the default
-config.colors = kanagawa
--- config.colors = colors
+-- config.colors = kanagawa
+config.colors = colors
 config.color_scheme = "tokyonight_night"
 -- config.color_scheme = "nightfox"
 config.warn_about_missing_glyphs = true

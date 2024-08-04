@@ -8,14 +8,17 @@ return {
     -- 'BufReadPre ' .. vim.fn.expand '~' .. 'vaults/personal/**.md',
     --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    'BufReadPre '
-      .. vim.fn.expand '~'
-      .. '~/vaults/personal/**.md',
-    'BufNewFile ' .. vim.fn.expand '~' .. '~/vaults/personal/**.md',
+    -- 'BufReadPre '
+    --   .. vim.fn.expand '~'
+    --   .. '~/vaults/personal/**.md',
+    -- 'BufNewFile ' .. vim.fn.expand '~' .. '~/vaults/personal/**.md',
   },
   dependencies = {
     -- Required.
     'nvim-lua/plenary.nvim',
+    'hrsh7th/nvim-cmp',
+    'nvim-treesitter/nvim-treesitter',
+    'epwalsh/pomo.nvim',
 
     -- see below for full list of optional dependencies 👇
   },
@@ -34,12 +37,12 @@ return {
   opts = {
     workspaces = {
       {
-        name = 'py4e',
-        path = '~/vaults/personal/py4e',
+        name = 'notes',
+        path = '~/notes',
       },
       {
         name = '2nd_brain',
-        path = '~/vaults/personal/2nd_brain',
+        path = '~/notes/2nd_brain',
       },
       {
         name = 'buf-parent',

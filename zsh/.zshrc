@@ -1,20 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# # confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
@@ -118,8 +101,8 @@ alias history="history 0"
 plugins=(
 git
 sudo
-fast-syntax-highlighting
- zsh-autocomplete
+# fast-syntax-highlighting
+ # zsh-autocomplete
 zsh-syntax-highlighting
 zsh-autosuggestions
 zsh-vi-mode
@@ -163,7 +146,7 @@ source $ZSH/oh-my-zsh.sh
 alias vi="nvim"
 alias vim="neovide"
 alias py="python3"
-alias u="sudo dnf -y update"
+alias u="paru -Syu"
 alias cat="bat"
 alias ld='eza -lD' -- list directories
 alias lf='eza -lf --color=always | grep -v /' -- list files
@@ -178,13 +161,12 @@ alias vc="NVIM_APPNAME=nvchad nvim"
 alias va="NVIM_APPNAME=astrovim nvim"
 alias cv="NVIM_APPNAME=CyberVim nvim"
 alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
-alias dnf="dnf5"
 
 #This makes Tab and ShiftTab, when pressed on the command line, cycle through listed completions, without changing what's listed in the menu:
 # bindkey              '^I'         menu-complete
 # bindkey "$terminfo[kcbt]" reverse-menu-complete
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
@@ -193,9 +175,9 @@ fastfetch
 export FPATH="~/.eza_completions/completions/zsh:$FPATH"
 
 # Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-export PATH="$PATH:/cargo/bin/alacritty"
+# [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+# fpath+=${ZDOTDIR:-~}/.zsh_functions
+# export PATH="$PATH:/cargo/bin/alacritty"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # FZF
@@ -219,8 +201,8 @@ fi
 eval "$(atuin init zsh)"
 
 # Tmuxifier
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
+# export PATH="$HOME/.tmuxifier/bin:$PATH"
+# eval "$(tmuxifier init -)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
