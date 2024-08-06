@@ -11,7 +11,6 @@ return {
     "folke/noice.nvim",
     event = "VimEnter",
     config = function()
-      require("configs.noice")
     end,
     dependencies = { { "MunifTanjim/nui.nvim" } },
   },

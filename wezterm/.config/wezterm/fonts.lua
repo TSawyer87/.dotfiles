@@ -4,8 +4,9 @@ local Fonts = {}
 
 function Fonts.setup(config)
 	config.font = wezterm.font_with_fallback({
-		"MesloLGS NF",
 		"JetBrainsMonoNL Nerd Font",
+		"MesloLGS NF",
+    "ttf-dejavu-ib",
 	})
 	config.font_size = 16.0
 	config.underline_thickness = "200%"

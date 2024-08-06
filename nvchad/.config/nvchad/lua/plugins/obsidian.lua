@@ -4,15 +4,15 @@ return {
   lazy = true,
   ft = 'markdown',
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  event = {
+  -- event = {
     -- 'BufReadPre ' .. vim.fn.expand '~' .. 'vaults/personal/**.md',
     --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    'BufReadPre '
-      .. vim.fn.expand '~'
-      .. '~/vaults/personal/**.md',
-    'BufNewFile ' .. vim.fn.expand '~' .. '~/vaults/personal/**.md',
-  },
+    -- 'BufReadPre '
+      -- .. vim.fn.expand '~'
+      -- .. '~/vaults/personal/**.md',
+  --   'BufNewFile ' .. vim.fn.expand '~' .. '~/vaults/personal/**.md',
+  -- },
   dependencies = {
     -- Required.
     'nvim-lua/plenary.nvim',
@@ -34,12 +34,12 @@ return {
   opts = {
     workspaces = {
       {
-        name = 'py4e',
-        path = '~/vaults/personal/py4e',
+        name = 'notes',
+        path = '~/notes',
       },
       {
         name = '2nd_brain',
-        path = '~/vaults/personal/2nd_brain',
+        path = '~/notes/2nd_brain',
       },
       {
         name = 'buf-parent',
