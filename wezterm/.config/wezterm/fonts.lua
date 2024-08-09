@@ -4,7 +4,7 @@ local Fonts = {}
 
 function Fonts.setup(config)
 	config.font = wezterm.font_with_fallback({
-		"JetBrainsMonoNL Nerd Font",
+		"JetBrainsMonoNL",
 		"MesloLGS NF",
     "ttf-dejavu-ib",
 	})
