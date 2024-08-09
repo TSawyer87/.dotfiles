@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "gruvchad",
+	theme = "mito-laser",
   transparency = true,
 
   statusline = {
