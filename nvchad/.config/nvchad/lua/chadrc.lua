@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "mito-laser",
+	theme = "gatekeeper",
   transparency = true,
 
   statusline = {
@@ -20,5 +20,21 @@ M.ui = {
 	 	["@comment"] = { italic = true },
 	 },
 }
+-- Set environment variable when Neovim starts or resumes
+vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+  group = vim.api.nvim_create_augroup("KittyIntegration", { clear = true }),
+  callback = function()
+    io.stdout:write("\x1b]1337;SetUserVar=IN_EDITOR=MQo\007")
+  end,
+})
+
+-- Unset environment variable when Neovim loses focus
+vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
+  group = vim.api.nvim_create_augroup("KittyUnsetVarVimLeave", { clear = true }),
+  callback = function()
+    io.stdout:write("\x1b]1337;SetUserVar=IN_EDITOR\007")
+  end,
+})
+
 
 return M

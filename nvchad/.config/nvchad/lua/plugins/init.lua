@@ -71,5 +71,9 @@ return {
   {
     'Bekaboo/deadcolumn.nvim',
     lazy = false,
-  }
+  },
+  {
+    "knubie/vim-kitty-navigator",
+    lazy = false,
+  },
 }

@@ -1,57 +1,45 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 40,
-    "width":1920,
-    "margin": "0 0 0 0",
-    "spacing":0,
+    "layer": "top",
+    "position": "top",
+    "height": 33,
+    "margin": "10, 5, 0, 5",
+    "modules-left": ["custom/launcher","custom/separator","cpu","custom/separator","memory","custom/separator","network","custom/separator","custom/updates","custom/separator","custom/keyboard-layout","custom/separator","custom/network_traffic","custom/separator","idle_inhibitor"],
+    "modules-center": ["hyprland/workspaces",],
+    "modules-right": [ "tray", "custom/separator", "backlight", "custom/separator", "battery", "custom/separator", "pulseaudio", "custom/separator", "clock", "custom/separator","custom/power"],
 
-    // Choose the order of the modules
-    // Add according to your wishes: "custom/weather"
-
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/updates", "backlight", "custom/keyboard-layout", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "clock","custom/power"],
-
- // Modules configuration
-
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "on-click": "activate",
-    "all-outputs": true,
-    "sort-by-number": true,
-    "format-icons": {
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10",
-      "focused": "",
-      "default": ""
+    "custom/launcher": {
+        "format": "  ",
+        "on-click" : "exec nwg-drawer -c 7 -is 70 -spacing 23",
     },
-    "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "all-outputs": true,
+        "sort-by-number": true,
+        "format-icons": {
+            "urgent": "",
+            "active": "",
+            "default": ""
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+
     },
-    "hyprland/window": {
-        "format": "{}",
-	"icon":true,
-	"icon-size" : 20
+    "custom/separator": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
     },
     "idle_inhibitor": {
         "format": "{icon}",
-       "format-icons": {
+        "format-icons": {
             "activated": "",
             "deactivated": ""
         }
     },
     "tray": {
         "icon-size": 20,
-        "spacing": 5
+        "spacing": 6
     },
     "clock": {
         "tooltip-format": "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>",
@@ -61,60 +49,62 @@
         //"max-length": 200
         "interval": 1,
         "on-click": "~/.config/waybar/scripts/OCV",
+
     },
     "cpu": {
-        "format": "🖳{usage}%",
-        "on-click": "foot -e htop"
+        "format": "; {usage}%",
+        "on-click": "footclient -e 'htop'",
     },
     "memory": {
-        "format": "🖴 {: >3}%",
-        "on-click": "foot -e htop"
+        "interval": 30,
+        "format": " {used:0.2f}GB",
+        "on-click": "footclient -e 'htop'",
+        "max-length": 10,
+        "critical": 80
     },
     "temperature": {
-        "thermal-zone": 7,  // Check with: # cat /sys/class/hwmon/hwmon*/temp1_input
-        "hwmon-path": "/sys/class/hwmon/hwmon7/temp1_input",
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        "format-critical": "{temperatureC}°C ",
-        "format": "{temperatureC}°C "
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{icon}&#8239;{temperatureC}°C",
+        "format-icons": ["", "", ""]
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{icon} {percent: >3}%",
+        "format": "{icon}{percent}%",
         "format-icons": ["", ""],
         "on-scroll-down": "brightnessctl -c backlight set 1%-",
         "on-scroll-up": "brightnessctl -c backlight set +1%",
-        "on-click": "~/.config/waybar/scripts/backlight-hint.sh"
+        "on-click": "~/.config/waybar/scripts/backlight-hint.sh",
     },
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 95,
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity: >3}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": ";{capacity}%",
+        "format-plugged": ";{capacity}%",
+        "format-alt": "{icon} {time}",
         "format-icons": ["", "", "", "", ""]
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        //"format-icons": ["", "", "", "", "", "", "", "", "", ""]
-        //"format": "&#x202b;{icon}&#x202c; {capacity}%",
-        //"format-icons": ["ﱉ","ﱊ","ﱌ","ﱍ","ﱋ"]
     },
-      "network": {
+    "network": {
         //"interface": "wlp0s20f3", // (Optional) To force the use of this interface  "format-wifi": "  {essid}",
         "format": "⚠Disabled",
-        "format-wifi": "",
-        "format-ethernet": "",
+        "format-wifi": ";({signalStrength}%)",
+        "format-ethernet": "({signalStrength}%)",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "⚠Disabled",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "family": "ipv4",
         "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
         "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-        //"min-length": 2,
-        //"max-length": 2,
-        "on-click": "nm-connection-editor"
+        "on-click": "nm-connection-editor",
+        "tooltip-format": "{essid}: {ipaddr}",
     },
-   "custom/updates": {
+       "custom/updates": {
        "format": "{} {icon}",
        "return-type": "json",
        "format-icons": {
@@ -126,51 +116,53 @@
        "exec": "waybar-module-pacman-updates",
        "on-click": "foot -e update"
    },
-    "custom/power": {
+       "custom/power": {
       	"format":"⏻",
        	"on-click": "nwgbar",
       	"tooltip": false,
    },
-   "custom/keyboard-layout": {
-      	"format": " Cheat", // Icon: keyboard
-        "on-click": "~/.config/waybar/scripts/keyhint.sh",
-     },
-    "custom/launcher": {
-    "format":"    ",
-    	"on-click": "exec nwg-drawer -c 7 -is 70 -spacing 23",
-    	"tooltip": false,
-     },
-     "custom/network_traffic": {
+        "custom/network_traffic": {
              "exec": "~/.config/waybar/scripts/network_traffic.sh",
              "return-type": "json",
              "format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",    // optional
 },
+   "custom/keyboard-layout": {
+      	"format": " Cheat", // Icon: keyboard
+        "on-click": "~/.local/bin/keyhint.sh",
+     },
     "pulseaudio": {
-        "scroll-step": 3, // %, can be a float
-        "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        //"format-source": "{volume}% ",
-        //"format-source-muted": "",
-        "format-source": "",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol",
-        "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        },
-        // https://github.com/chubin/wttr.in
-        "custom/weather": {
-        "exec": "curl 'https://wttr.in/Essen?format=2'",
-        "interval": 900,
-	    "on-click": "yad --html --uri='https://wttr.in/Essen' --center --fixed --width=1000 --height=680 --timeout=60 --timeout-indicator=right"
-        },
-    }
+      // "scroll-step": 1, // %, can be a float
+      "format": "{icon} {volume}% {format_source}",
+      "format-bluetooth": "{icon} {volume}% {format_source}",
+      "format-bluetooth-muted": " {format_source}",
+      "format-muted": "  {format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "🎧",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+    },
+      "random-icons": {
+        "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+        "on": " "
+      },
+      "repeat-icons": {
+        "on": " "
+      },
+      "single-icons": {
+        "on": "1 "
+      },
+      "state-icons": {
+        "paused": "",
+        "playing": ""
+      },
+      "max-length": 45
+    },
+}
