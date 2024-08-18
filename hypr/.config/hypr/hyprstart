@@ -10,7 +10,7 @@ export MICRO_TRUECOLOR=1
 export EDITOR=/usr/bin/nvim
 
 #browser
-export BROWSER=firefox
+export BROWSER=firedragon
 #terminal
 export TERM=foot
 #mail

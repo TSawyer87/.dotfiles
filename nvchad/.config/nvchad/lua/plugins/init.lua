@@ -1,7 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre", -- uncomment for format on save
     config = function()
       require "configs.conform"
     end,
@@ -10,21 +10,20 @@ return {
   {
     "folke/noice.nvim",
     event = "VimEnter",
-    config = function()
-    end,
+    config = function() end,
     dependencies = { { "MunifTanjim/nui.nvim" } },
   },
   {
     "folke/twilight.nvim",
     cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     config = function()
-      require("configs.twilight")
+      require "configs.twilight"
     end,
   },
   {
-		"rcarriga/nvim-notify",
-		lazy = false,
-	},
+    "rcarriga/nvim-notify",
+    lazy = false,
+  },
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -61,19 +60,24 @@ return {
   },
   -- search & replace
   {
-    'MagicDuck/grug-far.nvim',
+    "MagicDuck/grug-far.nvim",
     lazy = false,
     config = function()
-      require('grug-far').setup({
-      });
-    end
+      require("grug-far").setup {}
+    end,
   },
   {
-    'Bekaboo/deadcolumn.nvim',
+    "Bekaboo/deadcolumn.nvim",
     lazy = false,
   },
   {
     "knubie/vim-kitty-navigator",
     lazy = false,
+  },
+  {
+    "fladson/vim-kitty",
+    config = function()
+      require("vim-kitty").setup()
+    end,
   },
 }

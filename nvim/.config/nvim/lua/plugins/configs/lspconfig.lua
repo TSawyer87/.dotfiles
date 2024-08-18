@@ -29,8 +29,31 @@ require('lspconfig').ruff.setup({
   }
 })
 
-require'lspconfig'.ruff_lsp.setup{}
+local on_attach = function(client, bufnr)
+  if client.name == 'ruff_lsp' then
+    -- Disable hover in favor of Pyright
+    client.server_capabilities.hoverProvider = false
+  end
+end
 
+require('lspconfig').ruff_lsp.setup {
+  on_attach = on_attach,
+}
+
+require('lspconfig').pyright.setup {
+  settings = {
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
+    },
+    python = {
+      analysis = {
+        -- Ignore all files for analysis to exclusively use Ruff for linting
+        ignore = { '*' },
+      },
+    },
+  },
+}
 require'lspconfig'.markdown_oxide.setup{}
 require'lspconfig'.marksman.setup{}
 require'lspconfig'.bashls.setup{}
@@ -158,4 +181,9 @@ mason_lspconfig.setup_handlers({
       },
     })
   end,
+})
+require("lsp-zero").setup({
+  on_attach = on_attach,
+  capabilities = lsp_capabilities,
+  handlers = handlers,
 })

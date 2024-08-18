@@ -6,6 +6,22 @@ set -xU MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xU MANROFFOPT "-c"
 set -x SHELL /usr/bin/fish
 
+# Enable vi-mode
+fish_vi_key_bindings
+# Emulates vim's cursor shape behavior
+# Set the normal and visual mode cursors to a block
+set fish_cursor_default block
+# Set the insert mode cursor to a line
+set fish_cursor_insert line
+# Set the replace mode cursors to an underscore
+set fish_cursor_replace_one underscore
+set fish_cursor_replace underscore
+# Set the external cursor to a line. The external cursor appears when a command is started.
+# The cursor shape takes the value of fish_cursor_default when fish_cursor_external is not specified.
+set fish_cursor_external line
+# The following variable can be used to configure cursor shape in
+# visual mode, but due to fish_cursor_default, is redundant here
+set fish_cursor_visual block
 ## Export variable need for qt-theme
 if type "qtile" >> /dev/null 2>&1
    set -x QT_QPA_PLATFORMTHEME "qt5ct"
@@ -145,6 +161,10 @@ alias upd '/usr/bin/garuda-update'
 alias vdir 'vdir --color=auto'
 alias wget 'wget -c '
 alias vc 'NVIM_APPNAME=nvchad nvim'
+alias vz 'NVIM_APPNAME=nvim_zero nvim'
+alias cv 'NVIM_APPNAME=cyvim nvim'
+alias vi 'nvim'
+alias v 'vi'
 
 # Get fastest mirrors
 alias mirror 'sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'
@@ -171,6 +191,7 @@ if status --is-interactive && type -q fastfetch
    fastfetch --config neofetch.jsonc
 end
 zoxide init fish | source
+mcfly init fish | source
 
 set -gx GOPATH $HOME/go; set -gx GOROOT $HOME/.go; set -gx PATH $GOPATH/bin $PATH; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g

@@ -1,6 +1,8 @@
 require("lint").linters_by_ft = {
 	markdown = { "markdownlint", "markdownlint-cli2" },
 	zsh = { "zsh" },
+  fish = { "fish" },
+  sh = { "shellcheck" },
 	lua = { "luacheck" },
   yaml = { "yamllint" },
   python = { "pylint" },

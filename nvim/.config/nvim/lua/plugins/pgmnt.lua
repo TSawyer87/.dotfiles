@@ -1,3 +1,0 @@
-return {
-  "cocopon/pgmnt.vim",
-}

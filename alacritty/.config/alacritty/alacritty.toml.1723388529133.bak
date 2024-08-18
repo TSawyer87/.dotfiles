@@ -1,22 +1,8 @@
 live_config_reload = true
 import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Dkeg - canvasedpastel.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Catppuccin-Mocha.toml"
 ]
 
-# ┏━━━━━━━━━━━━━━━━┓
-# ┃ General Config ┃
-# ┗━━━━━━━━━━━━━━━━┛
-
-[shell]
-program = "/usr/bin/fish"
-
-[scrolling]
-history = 10_000
-multiplier = 3
-
-# ┏━━━━━━━━━━━━━━┓
-# ┃ Colors       ┃
-# ┗━━━━━━━━━━━━━━┛
 [colors]
 draw_bold_text_with_bright_colors = true
 
@@ -50,28 +36,18 @@ style = "Underline"
 [env]
 TERM = "xterm-256color"
 
-# ┏━━━━━━━━━━━━━━━┓
-# ┃ Font Settings ┃
-# ┗━━━━━━━━━━━━━━━┛
+[font.bold]
+family = "FiraCode Nerd Font Mono"
 
-[font]
-size = 16
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
 
-  [font.bold]
-  family = "FiraCode Nerd Font Mono"
+[font.italic]
+family = "FiraCode Nerd Font Mono"
 
-  [font.bold_italic]
-  family = "FiraCode Nerd Font Mono"
+[font.normal]
+family = "FiraCode Nerd Font Mono"
 
-  [font.italic]
-  family = "FiraCode Nerd Font Mono"
-
-  [font.normal]
-  family = "FiraCode Nerd Font Mono"
-
-# ┏━━━━━━━━━━━━━━━━━━━━┓
-# ┃ Keyboard Bindings  ┃
-# ┗━━━━━━━━━━━━━━━━━━━━┛
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
@@ -110,18 +86,19 @@ mods = "Control"
 [mouse]
 hide_when_typing = true
 
-# ┏━━━━━━━━━━━━━━┓
-# ┃ Window Config┃
-# ┗━━━━━━━━━━━━━━┛
+[scrolling]
+history = 10_000
+multiplier = 3
+
+[shell]
+program = "/usr/bin/fish"
 
 [window]
 decorations = "full"
 decorations_theme_variant = "Dark"
-dynamic_padding = false
-padding = { x = 2, y = 2 }
+dynamic_padding = true
 opacity = 0.8
 title = "Alacritty"
-option_as_alt = "OnlyLeft"
 
   [window.class]
   general = "Alacritty"
