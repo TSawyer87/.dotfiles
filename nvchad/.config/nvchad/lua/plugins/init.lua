@@ -80,4 +80,19 @@ return {
       require("vim-kitty").setup()
     end,
   },
+  {
+    "mrjones2014/smart-splits.nvim",
+    lazy = false,
+    version = ">=1.0.0",
+    config = function()
+      require("smart-splits").setup()
+    end,
+  },
+  {
+    -- Codeium AI
+    {
+      "Exafunction/codeium.vim",
+      event = "BufEnter",
+    },
+  },
 }

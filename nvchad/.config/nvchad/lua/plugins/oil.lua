@@ -23,6 +23,6 @@ return {
     vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 
     -- Open parent directory in floating window
-    vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
+    -- vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
   end,
 }

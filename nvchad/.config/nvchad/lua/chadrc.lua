@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-	theme = "gatekeeper",
+	theme = "catppuccin",
   transparency = true,
 
   statusline = {

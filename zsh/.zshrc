@@ -1,208 +1,267 @@
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-export EDITOR=nvim
-export VISUAL=nvim
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="starship"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+## Path section
+# Set $PATH if ~/.local/bin exist
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
 
-setopt autocd   # change directory just by typing its name
-setopt interactivecomments  # allow comments in interactive mode
-setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
-setopt nonomatch  #  hide error message if there is no match for the pattern
-setopt notify  # report the status of background jobs immediately
-setopt numericglobsort     #  sort filenames numerically when it makes sense
-setopt promptsubst  #  allow substituted commands in prompt
-
-WORDCHARS=${WORDCHARS//\/} # Don't consider certain characters part of the word
-
-# hide EOL sign ('%')
-PROMPT_EOL_MARK=''
-
-# configure key keybindings
-bindkey ' ' magic-space  # do history expansion on space
-bindkey '^U' backward-kill-line  # ctrl + U
-bindkey '^[[3;5~' kill-word      # ctrl + Supr
-bindkey '^[[3~' delete-char      # delete
-bindkey '^[[1;5C' forward-word   # ctrl + cursor right
-bindkey '^[[1;5D' backward-word  # ctrl + cursor left
-bindkey '^[[5~' beginning-of-buffer-or-history  # PgUp
-bindkey '^[[6~' end-of-buffer-or-history  # PgUp/PgDown
-bindkey '^[[H' beginning-of-line    # home
-bindkey '^[[F' end-of-line       # end
-bindkey '^[[Z' undo              # shift + tab undo last action
-
-# enable completion features
-autoload -Uz compinit
-compinit -d ~/.cache/zcompdump
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# History configurations
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=2000
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-
-# Share history in every terminal session
-setopt SHARE_HISTORY
-# force zsh to show the complete history
-alias history="history 0"
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
- HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
- zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
- zstyle ':omz:update' frequency 2
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
- COMPLETION_WAITING_DOTS="true"
-
- DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# see 'man strftime' for details.
- HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-git
-sudo
-# fast-syntax-highlighting
- # zsh-autocomplete
-zsh-syntax-highlighting
-zsh-autosuggestions
-zsh-vi-mode
-# autojump
-colorize
-fzf
-fzf-tab
-fancy-ctrl-z
-rust
-# starship
-)
-ZSH_COLORIZE_TOOL=chroma
-ZSH_COLORIZE_STYLE="colorful"
-ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
-
-# Fancy Ctrl-Z
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
+eval "$(starship init zsh)"
+function set_win_title(){
+    echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
 }
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-source $ZSH/oh-my-zsh.sh
+precmd_functions+=(set_win_title)
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi="nvim"
-alias vim="neovide"
-alias py="python3"
-alias u="paru -Syu"
-alias cat="bat"
-alias ld='eza -lD' -- list directories
-alias lf='eza -lf --color=always | grep -v /' -- list files
-alias lh='eza -al --group-directories-first' -- list hidden
-alias ls="eza -alF --color=always --sort=size | grep -v /" -- list only files sorted by size
-alias lS='eza -alf --color=always --sort=size | grep -v /'
-alias lt='eza -al --sort=modified' -- list only files sorted by last modified
-alias lg="lazygit"
-alias obsidian="flatpak run md.obsidian.Obsidian"
-alias vz="NVIM_APPNAME=nvim-lazyvim nvim"
+
+## Plugins section: Enable fish style features
+# Use syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Use autosuggestion
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Use history substring search
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Use fzf
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# Advanced command-not-found hook
+[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
+
+
+## Options section
+setopt correct                                                  # Auto correct mistakes
+setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
+setopt nocaseglob                                               # Case insensitive globbing
+setopt rcexpandparam                                            # Array expension with parameters
+setopt nocheckjobs                                              # Don't warn about running processes when exiting
+setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+setopt nobeep                                                   # No beep
+setopt appendhistory                                            # Immediately append history instead of overwriting
+setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+setopt autocd                                                   # if only directory path is entered, cd there.
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
+# Completion.
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+zstyle ':completion:*' rehash true                              # automatically find new executables in path
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' menu select
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
+
+# Speed up completions
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zcache
+
+# automatically load bash completion functions
+autoload -U +X bashcompinit && bashcompinit
+
+HISTFILE=~/.zhistory
+HISTSIZE=50000
+SAVEHIST=10000
+
+
+## Keys
+# Use emacs key bindings
+bindkey -e
+
+# [PageUp] - Up a line of history
+if [[ -n "${terminfo[kpp]}" ]]; then
+  bindkey -M emacs "${terminfo[kpp]}" up-line-or-history
+  bindkey -M viins "${terminfo[kpp]}" up-line-or-history
+  bindkey -M vicmd "${terminfo[kpp]}" up-line-or-history
+fi
+# [PageDown] - Down a line of history
+if [[ -n "${terminfo[knp]}" ]]; then
+  bindkey -M emacs "${terminfo[knp]}" down-line-or-history
+  bindkey -M viins "${terminfo[knp]}" down-line-or-history
+  bindkey -M vicmd "${terminfo[knp]}" down-line-or-history
+fi
+
+# Start typing + [Up-Arrow] - fuzzy find history forward
+if [[ -n "${terminfo[kcuu1]}" ]]; then
+  autoload -U up-line-or-beginning-search
+  zle -N up-line-or-beginning-search
+
+  bindkey -M emacs "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
+# Start typing + [Down-Arrow] - fuzzy find history backward
+if [[ -n "${terminfo[kcud1]}" ]]; then
+  autoload -U down-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+
+  bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+# [Home] - Go to beginning of line
+if [[ -n "${terminfo[khome]}" ]]; then
+  bindkey -M emacs "${terminfo[khome]}" beginning-of-line
+  bindkey -M viins "${terminfo[khome]}" beginning-of-line
+  bindkey -M vicmd "${terminfo[khome]}" beginning-of-line
+fi
+# [End] - Go to end of line
+if [[ -n "${terminfo[kend]}" ]]; then
+  bindkey -M emacs "${terminfo[kend]}"  end-of-line
+  bindkey -M viins "${terminfo[kend]}"  end-of-line
+  bindkey -M vicmd "${terminfo[kend]}"  end-of-line
+fi
+
+# [Shift-Tab] - move through the completion menu backwards
+if [[ -n "${terminfo[kcbt]}" ]]; then
+  bindkey -M emacs "${terminfo[kcbt]}" reverse-menu-complete
+  bindkey -M viins "${terminfo[kcbt]}" reverse-menu-complete
+  bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
+fi
+
+# [Backspace] - delete backward
+bindkey -M emacs '^?' backward-delete-char
+bindkey -M viins '^?' backward-delete-char
+bindkey -M vicmd '^?' backward-delete-char
+# [Delete] - delete forward
+if [[ -n "${terminfo[kdch1]}" ]]; then
+  bindkey -M emacs "${terminfo[kdch1]}" delete-char
+  bindkey -M viins "${terminfo[kdch1]}" delete-char
+  bindkey -M vicmd "${terminfo[kdch1]}" delete-char
+else
+  bindkey -M emacs "^[[3~" delete-char
+  bindkey -M viins "^[[3~" delete-char
+  bindkey -M vicmd "^[[3~" delete-char
+
+  bindkey -M emacs "^[3;5~" delete-char
+  bindkey -M viins "^[3;5~" delete-char
+  bindkey -M vicmd "^[3;5~" delete-char
+fi
+
+typeset -g -A key
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+	autoload -Uz add-zle-hook-widget
+	function zle_application_mode_start { echoti smkx }
+	function zle_application_mode_stop { echoti rmkx }
+	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+fi
+
+# Control Left - go back a word
+key[Control-Left]="${terminfo[kLFT5]}"
+if [[ -n "${key[Control-Left]}"  ]]; then
+	bindkey -M emacs "${key[Control-Left]}"  backward-word
+	bindkey -M viins "${key[Control-Left]}"  backward-word
+	bindkey -M vicmd "${key[Control-Left]}"  backward-word
+fi
+
+# Control Left - go forward a word
+key[Control-Right]="${terminfo[kRIT5]}"
+if [[ -n "${key[Control-Right]}" ]]; then
+	bindkey -M emacs "${key[Control-Right]}" forward-word
+	bindkey -M viins "${key[Control-Right]}" forward-word
+	bindkey -M vicmd "${key[Control-Right]}" forward-word
+fi
+
+# Alt Left - go back a word
+key[Alt-Left]="${terminfo[kLFT3]}"
+if [[ -n "${key[Alt-Left]}"  ]]; then
+	bindkey -M emacs "${key[Alt-Left]}"  backward-word
+	bindkey -M viins "${key[Alt-Left]}"  backward-word
+	bindkey -M vicmd "${key[Alt-Left]}"  backward-word
+fi
+
+# Control Right - go forward a word
+key[Alt-Right]="${terminfo[kRIT3]}"
+if [[ -n "${key[Alt-Right]}" ]]; then
+	bindkey -M emacs "${key[Alt-Right]}" forward-word
+	bindkey -M viins "${key[Alt-Right]}" forward-word
+	bindkey -M vicmd "${key[Alt-Right]}" forward-word
+fi
+
+## Useful aliases
+
+# Replace ls with exa
+alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
+alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first --icons'  # long format
+alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+
+# Replace some more things with better alternatives
+alias cat='bat --style header --style snip --style changes --style header'
+[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
+
+# Common use
+alias grubup="sudo update-grub"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias rmpkg="sudo pacman -Rdd"
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias upd='/usr/bin/garuda-update'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='grep -F --color=auto'
+alias egrep='grep -E --color=auto'
+alias hw='hwinfo --short'                          # Hardware Info
+alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
+alias ip='ip -color'
+alias lg='lazygit'
 alias vc="NVIM_APPNAME=nvchad nvim"
-alias va="NVIM_APPNAME=astrovim nvim"
-alias cv="NVIM_APPNAME=CyberVim nvim"
-alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+alias vz="NVIM_APPNAME=nvim_zero nvim"
+alias vn="NVIM_APPNAME=newvim nvim"
+alias vi="nvim"
 
-#This makes Tab and ShiftTab, when pressed on the command line, cycle through listed completions, without changing what's listed in the menu:
-# bindkey              '^I'         menu-complete
-# bindkey "$terminfo[kcbt]" reverse-menu-complete
+
+# Get fastest mirrors
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+
+# Help people new to Arch
+alias apt='man pacman'
+alias apt-get='man pacman'
+alias please='sudo'
+alias tb='nc termbin.com 9999'
+alias helpme='cht.sh --shell'
+alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
+
+# Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+
+# Get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
+
+# Recent installed packages
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
+# Load Mcfly
+export MCFLY_FUZZY=true
+export MCFLY_RESULTS=20
+export MCFLY_INTERFACE_VIEW=BOTTOM
+export MCFLY_RESULTS_SORT=LAST_RUN
+eval "$(mcfly init zsh)"
 eval "$(zoxide init zsh)"
-# eval "$(starship init zsh)"
 
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-source "$HOME/.cargo/env"
-fastfetch
-export FPATH="~/.eza_completions/completions/zsh:$FPATH"
-
-# Generated for envman. Do not edit.
-# [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-# fpath+=${ZDOTDIR:-~}/.zsh_functions
-# export PATH="$PATH:/cargo/bin/alacritty"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# FZF
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# # enable auto-suggestions based on the history
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  # change suggestion color
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#999"
-fi
-
-# enable command-not-found if installed
-if [ -e /etc/zsh_command_not_found ]; then
-  . /etc/zsh_command_not_found
-fi
-
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"
-
-# Tmuxifier
-# export PATH="$HOME/.tmuxifier/bin:$PATH"
-# eval "$(tmuxifier init -)"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+## Run neofetch
+neofetch

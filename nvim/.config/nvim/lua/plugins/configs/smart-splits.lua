@@ -92,3 +92,4 @@ require('smart-splits').setup({
   -- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
   log_level = 'info',
 })
+

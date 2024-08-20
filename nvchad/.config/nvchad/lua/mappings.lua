@@ -63,10 +63,3 @@ map("n", "<leader>wm", function()
   require("smart-splits").toggle.maximize()
 end, { desc = "Maximize Toggle" })
 
--- wezterm-tmux
-local mux = require "wezterm-mux"
-map("n", "<C-h>", mux.wezterm_move_left)
-map("n", "<C-l>", mux.wezterm_move_right)
-map("n", "<C-j>", mux.wezterm_move_down)
-map("n", "<C-k>", mux.wezterm_move_up)
-map("n", "<A-x>", "<C-w>q") -- some actions dont need from a specific function
