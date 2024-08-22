@@ -4,10 +4,10 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
-eval "$(starship init zsh)"
-function set_win_title(){
-    echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
-}
+# eval "$(starship init zsh)"
+# function set_win_title(){
+#     echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
+# }
 precmd_functions+=(set_win_title)
 
 
@@ -74,7 +74,7 @@ SAVEHIST=10000
 
 ## Keys
 # Use emacs key bindings
-bindkey -e
+bindkey -v
 
 # [PageUp] - Up a line of history
 if [[ -n "${terminfo[kpp]}" ]]; then
@@ -164,7 +164,7 @@ if [[ -n "${key[Control-Left]}"  ]]; then
 	bindkey -M vicmd "${key[Control-Left]}"  backward-word
 fi
 
-# Control Left - go forward a word
+# Control Right - go forward a word
 key[Control-Right]="${terminfo[kRIT5]}"
 if [[ -n "${key[Control-Right]}" ]]; then
 	bindkey -M emacs "${key[Control-Right]}" forward-word
@@ -180,7 +180,7 @@ if [[ -n "${key[Alt-Left]}"  ]]; then
 	bindkey -M vicmd "${key[Alt-Left]}"  backward-word
 fi
 
-# Control Right - go forward a word
+# Alt Right - go forward a word
 key[Alt-Right]="${terminfo[kRIT3]}"
 if [[ -n "${key[Alt-Right]}" ]]; then
 	bindkey -M emacs "${key[Alt-Right]}" forward-word
@@ -188,14 +188,27 @@ if [[ -n "${key[Alt-Right]}" ]]; then
 	bindkey -M vicmd "${key[Alt-Right]}" forward-word
 fi
 
+# fancy Ctrl-Z
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 ## Useful aliases
 
 # Replace ls with exa
-alias ls='exa -al --color=always --group-directories-first --icons' # preferred listing
-alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first --icons'  # long format
-alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
-alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+alias ls='eza -al --color=always --group-directories-first --icons' # preferred listing
+alias la='eza -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
+alias l.='eza -ald --color=always --group-directories-first --icons .*' # show only dotfiles
 
 # Replace some more things with better alternatives
 alias cat='bat --style header --style snip --style changes --style header'
@@ -229,6 +242,7 @@ alias lg='lazygit'
 alias vc="NVIM_APPNAME=nvchad nvim"
 alias vz="NVIM_APPNAME=nvim_zero nvim"
 alias vn="NVIM_APPNAME=newvim nvim"
+alias vo="NVIM_APPNAME=cybervim nvim"
 alias vi="nvim"
 
 
@@ -257,6 +271,7 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
 # Load Mcfly
 export MCFLY_FUZZY=true
+export MCFLY_KEY_SCHEME=vim
 export MCFLY_RESULTS=20
 export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_RESULTS_SORT=LAST_RUN
@@ -265,3 +280,10 @@ eval "$(zoxide init zsh)"
 
 ## Run neofetch
 neofetch
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+export DENO_INSTALL="/home/jr/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

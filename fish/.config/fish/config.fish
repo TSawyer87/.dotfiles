@@ -163,7 +163,7 @@ alias wget 'wget -c '
 alias vc 'NVIM_APPNAME=nvchad nvim'
 alias vz 'NVIM_APPNAME=nvim_zero nvim'
 alias vn 'NVIM_APPNAME=newvim nvim'
-alias cv 'NVIM_APPNAME=cyvim nvim'
+alias vo 'NVIM_APPNAME=cybervim nvim'
 alias vi 'nvim'
 alias v 'vi'
 
