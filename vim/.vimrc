@@ -28,6 +28,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -268,6 +269,15 @@ let g:prettier#config#print_width = 80
 " Enable auto formatting on paste
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
+
+" tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
+nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 " Run Prettier on save
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
