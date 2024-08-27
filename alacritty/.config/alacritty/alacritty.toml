@@ -119,7 +119,7 @@ decorations = "full"
 decorations_theme_variant = "Dark"
 dynamic_padding = false
 padding = { x = 2, y = 2 }
-opacity = 0.8
+opacity = 0.9
 title = "Alacritty"
 option_as_alt = "OnlyLeft"
 
