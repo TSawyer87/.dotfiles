@@ -292,4 +292,12 @@ augroup pencil
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
-
+" bash-language-server
+let g:ycm_language_server =
+            \ [
+            \   {
+            \       'name': 'bash',
+            \       'cmdline': [ 'bash-language-server', 'start' ],
+            \       'filetypes': [ 'sh' ],
+            \   }
+            \ ]

@@ -181,6 +181,14 @@ alias tb 'nc termbin.com 9999'
 alias helpme 'echo "To print basic information about a command use tldr <command>"'
 alias pacdiff 'sudo -H DIFFPROG=meld pacdiff'
 
+# FZF
+# set up fzf key bindings
+fzf --fish | source
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
 # Get the error messages from journalctl
 alias jctl 'journalctl -p 3 -xb'
 

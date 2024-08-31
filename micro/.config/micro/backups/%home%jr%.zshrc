@@ -7,7 +7,6 @@ fi
 # eval "$(starship init zsh)"
 # function set_win_title(){
 #     echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
-# }
 precmd_functions+=(set_win_title)
 
 
@@ -22,15 +21,8 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Use fzf
-export FZF_COMPLETION_TRIGGER='~~'
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-
-# Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,target
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
@@ -57,19 +49,12 @@ setopt pushdminus
 
 # Completion.
 autoload -Uz compinit
-source ~/.config/fzf-tab/fzf-tab.zsh
-zstyle ':completion:*:git-checkout:*' sort false  # disable sorting when completing `git checkout `
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' rehash true                              # automatically find new executables in path
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
-# zstyle ':completion:*' menu select
-zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':completion:*' menu select
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
@@ -238,21 +223,16 @@ alias rmpkg="sudo pacman -Rdd"
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias upd='/usr/bin/garuda-update'
-alias wtr='curl wttr.in'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias dir='dir --color=auto'
-alias d='kitten diff'
-alias gd='git difftool --no-symlinks --dir-diff'
 alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='grep -F --color=auto'
 alias egrep='grep -E --color=auto'
-alias fzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
-alias nf="fzf --bind 'enter:become(nvim {})'"
 alias hw='hwinfo --short'                          # Hardware Info
 alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
 alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
@@ -291,14 +271,12 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 # Load Mcfly
 export MCFLY_FUZZY=true
 export MCFLY_KEY_SCHEME=vim
-export MCFLY_RESULTS=50
+export MCFLY_RESULTS=20
 export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_RESULTS_SORT=LAST_RUN
 eval "$(mcfly init zsh)"
 eval "$(zoxide init zsh)"
 
-# fzf default opts
-export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border --margin=1 --padding=1"
 ## Run neofetch
 neofetch
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
