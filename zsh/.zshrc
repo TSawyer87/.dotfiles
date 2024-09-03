@@ -223,6 +223,7 @@ alias la='eza -a --color=always --group-directories-first --icons'  # all files 
 alias ll='eza -l --color=always --group-directories-first --icons'  # long format
 alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
 alias l.='eza -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+alias mv='mv -iv'
 
 # Replace some more things with better alternatives
 alias cat='bat --style header --style snip --style changes --style header'
@@ -248,8 +249,10 @@ alias dir='dir --color=auto'
 alias d='kitten diff'
 alias gd='git difftool --no-symlinks --dir-diff'
 alias vdir='vdir --color=auto'
+alias grep="rg --color=auto"
 alias grep='grep --color=auto'
 alias fgrep='grep -F --color=auto'
+alias ps='procs'
 alias egrep='grep -E --color=auto'
 alias fzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
 alias nf="fzf --bind 'enter:become(nvim {})'"
@@ -284,6 +287,8 @@ alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
+alias zathura="zathura --fork"
+# alias -s pdf="zathura --fork"
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -309,3 +314,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
