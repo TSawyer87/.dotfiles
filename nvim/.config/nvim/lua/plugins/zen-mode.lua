@@ -1,7 +1,7 @@
 return {
     {
-        'folke/zen-mode.nvim',
-        cmd = { 'ZenMode' },
+        "folke/zen-mode.nvim",
+        cmd = { "ZenMode" },
         opts = {
             plugins = {
                 options = {
@@ -14,28 +14,28 @@ return {
                 tmux = { enabled = false }, -- disables the tmux statusline
                 kitty = {
                     enabled = false,
-                    font = '+1', -- font size increment
+                    font = "+1", -- font size increment
                 },
             },
         },
     },
     {
-        'folke/twilight.nvim',
+        "folke/twilight.nvim",
         cmd = {
             -- "ZenMode",
-            'TZAtaraxis',
-            'TZMinimalist',
-            'TZNarrow',
-            'TZFocus',
-            'Twilight',
-            'TwilightEnable',
-            'TwilightDisable',
+            "TZAtaraxis",
+            "TZMinimalist",
+            "TZNarrow",
+            "TZFocus",
+            "Twilight",
+            "TwilightEnable",
+            "TwilightDisable",
         },
         opts = {
             dimming = {
                 alpha = 0.25, -- amount of dimming
-                color = { 'Normal', '#ECEFF4' },
-                term_bg = '#2E3141', -- if guibg=NONE, this will be used to calculate text color
+                color = { "Normal", "#ECEFF4" },
+                term_bg = "#2E3141", -- if guibg=NONE, this will be used to calculate text color
                 inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
             },
         },

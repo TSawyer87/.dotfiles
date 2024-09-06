@@ -47,6 +47,7 @@ return {
 			dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
 			dashboard.button("s", " " .. " Restore Session", ":SessionLoad<CR>"),
 			dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
+			dashboard.button("m", "M" .. " Mason", ":Mason<CR>"),
 			dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 		}
 		dashboard.section.footer.val = fortune()

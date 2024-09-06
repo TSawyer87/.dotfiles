@@ -1,7 +1,7 @@
 local M = {
 	"gbprod/nord.nvim",
-	priority = 100,
-	lazy = false,
+	-- priority = 100,
+	lazy = true,
 }
 
 M.config = function()
@@ -108,7 +108,7 @@ M.config = function()
 			--
 		end,
 	})
-	vim.cmd.colorscheme("nord")
+	-- vim.cmd.colorscheme("nord")
 end
 
 return M
