@@ -5,7 +5,15 @@ set VIRTUAL_ENV_DISABLE_PROMPT 1
 set -xU MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xU MANROFFOPT -c
 set -x SHELL /usr/bin/fish
-
+# set -g theme_powerline_fonts yes
+set -g theme_nerd_fonts yes
+set -g theme_display_git_stashed_verbose yes
+set -g theme_display_git_master_branch yes
+set -g theme_display_git_untracked yes
+set -g theme_display_git_dirty yes
+set -g theme_display_nvm yes
+set -g theme_display_virtualenv yes
+set -g theme_color_scheme gruvbox_dark
 # Enable vi-mode
 fish_vi_key_bindings
 # Emulates vim's cursor shape behavior
@@ -54,9 +62,9 @@ end
 
 
 ## Starship prompt
-if status --is-interactive
-    source ("/usr/bin/starship" init fish --print-full-init | psub)
-end
+ if status --is-interactive
+     source ("/usr/bin/starship" init fish --print-full-init | psub)
+ end
 
 
 ## Advanced command-not-found hook
@@ -129,6 +137,7 @@ alias la 'eza -a --color=always --group-directories-first --icons' # all files a
 alias ll 'eza -l --color=always --group-directories-first --icons' # long format
 alias lt 'eza -aT --color=always --group-directories-first --icons' # tree listing
 alias l. 'eza -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+alias nfzf 'fzf --bind "enter:become(nvim {})"'
 
 # Replace some more things with better alternatives
 alias cat 'bat --style header --style snip --style changes --style header'
