@@ -1,44 +1,46 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 ## Path section
 # Set $PATH if ~/.local/bin exist
 if [ -d "$HOME/.local/bin" ]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
-# eval "$(starship init zsh)"
-# function set_win_title(){
-#     echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
-# }
-precmd_functions+=(set_win_title)
+export ZSH="$HOME/.oh-my-zsh"
+export EDITOR=nvim
+
+ZSH_THEME="xiong-chiamiov-plus"
+
+plugins=( 
+    git
+    dnf
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    sudo
+    fzf-tab
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# check the dnf plugins commands here
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dnf
 
 
-## Plugins section: Enable fish style features
-# Use syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Display Pokemon-colorscripts
+# Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
+pokemon-colorscripts --no-title -s -r
 
-# Use autosuggestion
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Set-up FZF key bindings (CTRL R for fuzzy history finder)
+source <(fzf --zsh)
 
-# Use history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# Use fzf
-export FZF_COMPLETION_TRIGGER='~~'
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# fzf default opts
+export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border --margin=1 --padding=1"
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-
-# Arch Linux command-not-found support, you must have package pkgfile installed
-# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
-[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
-
-# Advanced command-not-found hook
-[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
-
 
 ## Options section
 setopt correct                                                  # Auto correct mistakes
@@ -57,7 +59,6 @@ setopt pushdminus
 
 # Completion.
 autoload -Uz compinit
-source ~/.config/fzf-tab/fzf-tab.zsh
 zstyle ':completion:*:git-checkout:*' sort false  # disable sorting when completing `git checkout `
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
@@ -80,12 +81,6 @@ zstyle ':completion:*' cache-path ~/.cache/zcache
 
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
-
-HISTFILE=~/.zhistory
-HISTSIZE=50000
-SAVEHIST=10000
-
-
 ## Keys
 # Use emacs key bindings
 bindkey -v
@@ -224,74 +219,13 @@ alias ll='eza -l --color=always --group-directories-first --icons'  # long forma
 alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
 alias l.='eza -ald --color=always --group-directories-first --icons .*' # show only dotfiles
 alias mv='mv -iv'
-
-# Replace some more things with better alternatives
-alias cat='bat --style header --style snip --style changes --style header'
-[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
-
-# Common use
-alias grubup="sudo update-grub"
-alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-alias tarnow='tar -acf '
-alias untar='tar -zxvf '
-alias wget='wget -c '
-alias rmpkg="sudo pacman -Rdd"
-alias psmem='ps auxf | sort -nr -k 4'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias upd='/usr/bin/garuda-update'
-alias wtr='curl wttr.in'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias dir='dir --color=auto'
-alias d='kitten diff'
-alias gd='git difftool --no-symlinks --dir-diff'
-alias vdir='vdir --color=auto'
-alias grep="rg --color=auto"
-alias grep='grep --color=auto'
-alias fgrep='grep -F --color=auto'
-alias ps='procs'
-alias egrep='grep -E --color=auto'
-alias fzf='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
-alias nf="fzf --bind 'enter:become(nvim {})'"
-alias hw='hwinfo --short'                          # Hardware Info
-alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
-alias ip='ip -color'
-alias lg='lazygit'
-alias vc="NVIM_APPNAME=nvchad nvim"
-alias vz="NVIM_APPNAME=nvim_zero nvim"
-alias vn="NVIM_APPNAME=newvim nvim"
-alias vo="NVIM_APPNAME=cybervim nvim"
+alias v="vi"
 alias vi="nvim"
-
-
-# Get fastest mirrors
-alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-
-# Help people new to Arch
-alias apt='man pacman'
-alias apt-get='man pacman'
-alias please='sudo'
-alias tb='nc termbin.com 9999'
-alias helpme='cht.sh --shell'
-alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
-
-# Cleanup orphaned packages
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
-
-# Get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
-alias zathura="zathura --fork"
-# alias -s pdf="zathura --fork"
-
-# Recent installed packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias upd="sudo dnf update -y"
+alias vc="NVIM_APPNAME=nvchad nvim"
+alias vm="NVIM_APPNAME=nvim-macro nvim"
+alias nv="NVIM_APPNAME=newvim nvim"
+alias vz="NVIM_APPNAME=lazyvim nvim"
 
 # Load Mcfly
 export MCFLY_FUZZY=true
@@ -301,19 +235,13 @@ export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_RESULTS_SORT=LAST_RUN
 eval "$(mcfly init zsh)"
 eval "$(zoxide init zsh)"
+# Replace some more things with better alternatives
+alias cat='bat --style header --style snip --style changes --style header'
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
-# fzf default opts
-export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --info=inline --border --margin=1 --padding=1"
-## Run neofetch
-neofetch
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-export DENO_INSTALL="/home/jr/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
