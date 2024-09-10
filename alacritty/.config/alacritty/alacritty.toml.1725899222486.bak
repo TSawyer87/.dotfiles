@@ -1,7 +1,11 @@
-# live_config_reload = true
+live_config_reload = true
 import = [
-  "/usr/local/lib/node_modules/alacritty-themes/themes/Catppuccin-Macchiato.toml"
+"~/.config/alacritty/themes/themes/cyber_punk_neon.toml"
 ]
+
+# ┏━━━━━━━━━━━━━━━━┓
+# ┃ General Config ┃
+# ┗━━━━━━━━━━━━━━━━┛
 
 [shell]
 program = "/usr/bin/fish"
@@ -10,6 +14,9 @@ program = "/usr/bin/fish"
 history = 10_000
 multiplier = 3
 
+# ┏━━━━━━━━━━━━━━┓
+# ┃ Colors       ┃
+# ┗━━━━━━━━━━━━━━┛
 [colors]
 draw_bold_text_with_bright_colors = true
 
@@ -43,6 +50,10 @@ style = "Underline"
 [env]
 TERM = "xterm-256color"
 
+# ┏━━━━━━━━━━━━━━━┓
+# ┃ Font Settings ┃
+# ┗━━━━━━━━━━━━━━━┛
+
 [font]
 size = 14
 
@@ -58,6 +69,9 @@ size = 14
   [font.normal]
   family = "FiraCode Nerd Font Mono"
 
+# ┏━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Keyboard Bindings  ┃
+# ┗━━━━━━━━━━━━━━━━━━━━┛
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
@@ -96,17 +110,18 @@ mods = "Control"
 [mouse]
 hide_when_typing = true
 
+# ┏━━━━━━━━━━━━━━┓
+# ┃ Window Config┃
+# ┗━━━━━━━━━━━━━━┛
+
 [window]
 decorations = "full"
 decorations_theme_variant = "Dark"
 dynamic_padding = false
+padding = { x = 2, y = 2 }
 opacity = 0.9
 title = "Alacritty"
 option_as_alt = "OnlyLeft"
-
-  [window.padding]
-  x = 2
-  y = 2
 
   [window.class]
   general = "Alacritty"
