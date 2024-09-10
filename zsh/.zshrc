@@ -18,6 +18,7 @@ plugins=(
     zsh-syntax-highlighting
     sudo
     fzf-tab
+    kitty
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -197,6 +198,19 @@ if [[ -n "${key[Alt-Right]}" ]]; then
 	bindkey -M vicmd "${key[Alt-Right]}" forward-word
 fi
 
+# Fedora: https://fedoraproject.org/wiki/Features/PackageKitCommandNotFound
+if [[ -x /usr/libexec/pk-command-not-found ]]; then
+  command_not_found_handler() {
+    if [[ -S /var/run/dbus/system_bus_socket && -x /usr/libexec/packagekitd ]]; then
+      /usr/libexec/pk-command-not-found "$@"
+      return $?
+    fi
+
+    printf "zsh: command not found: %s\n" "$1" >&2
+    return 127
+  }
+fi
+
 # fancy Ctrl-Z
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -235,6 +249,7 @@ export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_RESULTS_SORT=LAST_RUN
 eval "$(mcfly init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(mcfly-fzf init zsh)"
 # Replace some more things with better alternatives
 alias cat='bat --style header --style snip --style changes --style header'
 HISTFILE=~/.zsh_history
