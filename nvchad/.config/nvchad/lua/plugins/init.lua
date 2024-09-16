@@ -95,4 +95,12 @@ return {
       event = "BufEnter",
     },
   },
+  {
+    "karb94/neoscroll.nvim",
+    enabled = true,
+    event = "VeryLazy",
+    config = function()
+      require "plugins.configs.neoscroll"
+    end,
+  },
 }

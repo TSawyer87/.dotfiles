@@ -12,6 +12,20 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    group = augroup("terminal_config"),
+    callback = function()
+        vim.wo.statuscolumn = ""
+        vim.wo.colorcolumn = ""
+        vim.wo.sidescrolloff = 0
+        vim.wo.scrolloff = 0
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        vim.wo.foldcolumn = "0"
+        vim.wo.foldmethod = "manual"
+    end,
+})
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup("highlight_yank"),
@@ -97,6 +111,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    group = augroup("auto_create_dir"),
+    callback = function(event)
+        if event.match:match("^%w%w+:[\\/][\\/]") then
+            return
+        end
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup("json_conceal"),
@@ -141,5 +167,28 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         vim.schedule(function()
             vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ""
         end)
+    end,
+})
+
+-- Trim whitespace on save
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = { "*" },
+    callback = function(_)
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
+
+-- Hyprlang LSP
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+    pattern = { "*.hl", "hypr*.conf" },
+    callback = function(event)
+        print(string.format("starting hyprls for %s", vim.inspect(event)))
+        vim.lsp.start({
+            name = "hyprlang",
+            cmd = { "hyprls" },
+            root_dir = vim.fn.getcwd(),
+        })
     end,
 })

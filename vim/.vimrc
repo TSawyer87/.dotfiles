@@ -1,3 +1,11 @@
+--           ██
+--          ░░
+--  ██    ██ ██ ██████████  ██████  █████
+-- ░██   ░██░██░░██░░██░░██░░██░░█ ██░░░██
+-- ░░██ ░██ ░██ ░██ ░██ ░██ ░██ ░ ░██  ░░
+--  ░░████  ░██ ░██ ░██ ░██ ░██   ░██   ██
+--   ░░██   ░██ ███ ░██ ░██░███   ░░█████
+--    ░░    ░░ ░░░  ░░  ░░ ░░░     ░░░░░
 " use python3
 if exists('py2') && has('python')
 elseif has('python3')
@@ -29,6 +37,7 @@ Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'

@@ -18,11 +18,6 @@ vim.g.lazyvim_picker = "auto"
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
--- LazyVim automatically configures lazygit:
---  * theme, based on the active colorscheme.
---  * editPreset to nvim-remote
---  * enables nerd font icons
--- Set to false to disable.
 -- Set the options you want to override in `~/.config/lazygit/custom.yml`
 -- WARN: on Windows you might want to set `editPreset: "nvim"` due to
 -- this issue https://github.com/jesseduffield/lazygit/issues/3467
@@ -100,7 +95,7 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
 -- opt.statuscolumn =
-opt.tabstop = 2 -- Number of spaces tabs count for
+opt.tabstop = 4 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 opt.undofile = true
@@ -110,6 +105,7 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+opt.gp = "rg"
 
 if vim.fn.has("nvim-0.10") == 1 then
     opt.smoothscroll = true
@@ -123,6 +119,7 @@ end
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+vim.g.html_indent_autotags = "html,head,body"
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"

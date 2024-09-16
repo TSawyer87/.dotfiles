@@ -1,15 +1,32 @@
 local map = vim.keymap.set
+local f = require("utils.functions")
+local r = require("utils.remaps")
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map(
-  { "n", "x" },
-  "<Down>",
-  "v:count == 0 ? 'gj' : 'j'",
-  { desc = "Down", expr = true, silent = true }
+    { "n", "x" },
+    "<Down>",
+    "v:count == 0 ? 'gj' : 'j'",
+    { desc = "Down", expr = true, silent = true }
 )
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
+-- remove trailing white space
+f.cmd("Nows", "%s/\\s\\+$//e", { desc = "remove trailing whitespace" })
+
+-- remove blank lines
+f.cmd("Nobl", "g/^\\s*$/d", { desc = "remove blank lines" })
+
+-- toggle wrapping
+f.cmd("Wt", "setlocal wrap! nowrap?", { desc = "toggle line wrapping" })
+r.noremap("n", "<leader>w", ":Wt<cr>", "toggle line wrapping")
+r.map_virtual({ "<leader>w", group = "line wrap", icon = { icon = "󰖶", hl = "Constant" } })
+
+-- spell check
+f.cmd("Sp", "setlocal spell! spell?", { desc = "toggle spell check" })
+r.noremap("n", "<leader>s", ":Sp<cr>", "toggle spell check")
+r.map_virtual({ "<leader>s", group = "spell check", icon = { icon = "󰓆", hl = "Constant" } })
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
@@ -45,16 +62,58 @@ map("n", "<Tab>", "<cmd> BufferLineCycleNext <CR>")
 map("n", "<S-Tab>", "<cmd> BufferLineCyclePrev <CR>")
 map("n", "<C-q>", "<cmd> bd <CR>")
 
+-- tabs
+r.noremap("n", "<leader><tab>l", "<cmd>tablast<cr>", "last tab")
+r.noremap("n", "<leader><tab>f", "<cmd>tabfirst<cr>", "first tab")
+r.noremap("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", "new tab")
+r.noremap("n", "<leader><tab>]", "<cmd>tabnext<cr>", "next tab")
+r.noremap("n", "<leader><tab>d", "<cmd>tabclose<cr>", "close tab")
+r.noremap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", "previous tab")
+r.map_virtual({ "<leader><tab>", group = "tabs", icon = { icon = " ", hl = "Constant" } })
+
+-- pseudo tail functionality
+f.cmd(
+    "Tail",
+    'set autoread | au CursorHold * checktime | call feedkeys("G")',
+    { desc = "pseudo tail functionality" }
+)
+
+-- make current buffer executable
+f.cmd("Chmodx", "!chmod a+x %", { desc = "make current buffer executable" })
+r.noremap("n", "<leader>x", ":Chmodx<cr>", "chmod +x buffer")
+r.map_virtual({ "<leader>x", group = "mark executable", icon = { icon = "", hl = "Constant" } })
+
+-- fix syntax highlighting
+f.cmd("FixSyntax", "syntax sync fromstart", { desc = "reload syntax highlighting" })
+
+-- vertical term
+f.cmd("T", ":vs | :set nu! | :term", { desc = "vertical terminal" })
+
+-- the worst place in the universe
+r.noremap("n", "Q", "<nop>", "")
+
+-- move blocks
+r.noremap("v", "J", ":m '>+1<CR>gv=gv", "move block up")
+r.noremap("v", "K", ":m '<-2<CR>gv=gv", "move block down")
+
+-- focus scrolling
+r.noremap("n", "<C-d>", "<C-d>zz", "scroll down")
+r.noremap("n", "<C-u>", "<C-u>zz", "scroll up")
+
+-- focus highlight searches
+r.noremap("n", "n", "nzzzv", "next match")
+r.noremap("n", "N", "Nzzzv", "prev match")
+
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
+    "n",
+    "<leader>ur",
+    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+    { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -98,11 +157,11 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+    severity = severity and vim.diagnostic.severity[severity] or nil
+    return function()
+        go({ severity = severity })
+    end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -169,12 +228,50 @@ map("n", "<leader>w|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>+", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wm", function()
-  require("smart-splits").toggle.maximize()
+    require("smart-splits").toggle.maximize()
 end, { desc = "Maximize Toggle" })
 
 map(
-  "n",
-  "<leader>ce",
-  "<cmd>lua require('femaco.edit').edit_code_block()<cr>",
-  { desc = "Edit Code Block" }
+    "n",
+    "<leader>ce",
+    "<cmd>lua require('femaco.edit').edit_code_block()<cr>",
+    { desc = "Edit Code Block" }
 )
+map(
+    "n",
+    "<leader>yr",
+    ":call setreg('+', getreg('@'))<CR>",
+    { desc = "Paste register to system clipboard" }
+)
+map(
+    "n",
+    "<leader>yp",
+    ":call setreg('+', expand('%:.') .. ':' .. line('.'))<CR>",
+    { desc = "Paste filename and line number to system clipboard" }
+)
+
+-- Hop
+map("n", "<leader>j", "<CMD>HopWord<CR>")
+
+vim.cmd([[
+cnoreabbrev W! w!
+cnoreabbrev W1 w!
+cnoreabbrev w1 w!
+cnoreabbrev Q! q!
+cnoreabbrev Q1 q!
+cnoreabbrev q1 q!
+cnoreabbrev Qa! qa!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wa wa
+cnoreabbrev Wq wq
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev wq1 wq!
+cnoreabbrev Wq1 wq!
+cnoreabbrev wQ1 wq!
+cnoreabbrev WQ1 wq!
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qa qa
+cnoreabbrev Qall qall
+]])

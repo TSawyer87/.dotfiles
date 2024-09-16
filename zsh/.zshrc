@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 ## Path section
@@ -8,8 +15,11 @@ fi
 
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
+export VISUAL=nvim
+export SHELL=/usr/bin/zsh
 
-ZSH_THEME="xiong-chiamiov-plus"
+# ZSH_THEME="xiong-chiamiov-plus"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=( 
     git
@@ -237,9 +247,12 @@ alias v="vi"
 alias vi="nvim"
 alias upd="sudo dnf update -y"
 alias vc="NVIM_APPNAME=nvchad nvim"
-alias vm="NVIM_APPNAME=nvim-macro nvim"
 alias nv="NVIM_APPNAME=newvim nvim"
 alias vz="NVIM_APPNAME=lazyvim nvim"
+alias upd="sudo dnf update -y"
+alias install="sudo dnf install "
+alias cursor="cursor Downloads/cursorcursor-0.40.4x86_64.AppImage"
+alias zen="flatpak run io.github.zen_browser.zen"
 
 # Load Mcfly
 export MCFLY_FUZZY=true
@@ -260,3 +273,6 @@ setopt appendhistory
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -21,6 +21,20 @@ return {
                 async = false,
                 timeout_ms = 1000,
             },
+            formatters = {
+                prettier = {
+                    command = "prettier",
+                    prepend_args = { "-w" },
+                },
+                prettierd = {
+                    command = "prettierd",
+                    prepend_args = { "-w" },
+                },
+                shfmt = {
+                    command = "shfmt",
+                    prepend_args = { "-i", "0", "-sr", "-kp" },
+                },
+            },
         })
 
         vim.keymap.set({ "n", "v" }, "<leader>fm", function()

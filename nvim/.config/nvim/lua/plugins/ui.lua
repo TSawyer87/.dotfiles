@@ -323,8 +323,48 @@ return {
         end,
     },
     {
+        "adelarsq/image_preview.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("image_preview").setup()
+        end,
+    },
+    {
         "HakonHarnes/img-clip.nvim",
         enabled = true,
         event = "BufEnter",
+    },
+    {
+        "levouh/tint.nvim",
+        event = "VeryLazy",
+        config = function()
+            local tint = require("tint")
+            local transforms = require("tint.transforms")
+            tint.setup({
+                transforms = {
+                    transforms.tint_with_threshold(-2, "#201430", 7),
+                    transforms.saturate(0.7),
+                },
+                tint_background_colors = true,
+                highlight_ignore_patterns = {
+                    "SignColumn",
+                    "LineNr",
+                    "CursorLine",
+                    "WinSeparator",
+                    "VertSplit",
+                    "StatusLineNC",
+                },
+            })
+            vim.api.nvim_create_autocmd("FocusGained", {
+                callback = function()
+                    tint.untint(vim.api.nvim_get_current_win())
+                end,
+            })
+            vim.api.nvim_create_autocmd("FocusLost", {
+                callback = function()
+                    tint.tint(vim.api.nvim_get_current_win())
+                end,
+            })
+        end,
     },
 }

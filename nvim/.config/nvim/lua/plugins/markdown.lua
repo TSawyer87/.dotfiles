@@ -57,7 +57,7 @@ return {
                 -- Config goes here; leave blank for defaults
                 mappings = {
                     MkdnGoBack = { "n", "<leader>b" },
-                    MkdnGoForward = false,
+                    -- MkdnGoForward = false,
                 },
                 foldtext = {
                     title_transformer = function()
