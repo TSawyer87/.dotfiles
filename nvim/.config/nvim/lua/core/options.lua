@@ -117,6 +117,17 @@ else
     -- opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
+-- lazy load shada
+local shada = vim.o.shada
+vim.o.shada = ""
+vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+        vim.o.shada = shada
+        pcall(vim.cmd.rshada, { bang = true })
+    end,
+})
+
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 vim.g.html_indent_autotags = "html,head,body"
