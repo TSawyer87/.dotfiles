@@ -1,3 +1,23 @@
+# Load required modules
+autoload -U colors && colors
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+# This line obtains information from the vcs.
+zstyle ':vcs_info:git*' formats "- (%b) "
+precmd() {
+    vcs_info
+}
+
+# Enable substitution in the prompt.
+setopt prompt_subst
+# Customize prompt
+# PS1="%{$fg[blue]%}%B[%b%{$fg[cyan]%}%n%{$fg[grey]%}%B@%b%{$fg[cyan]%}%m%{$fg[blue]%}%B]-%b%{$fg[blue]%}%B[%b%{$fg[white]%}%~%{$fg[blue]%}%B]%b %{$fg[cyan]%}%B>>>%b%{$reset_color%} %G"
+PS1="%{$fg[blue]%}%B[%b%{$fg[cyan]%}%n%{$fg[grey]%}%B@%b%{$fg[cyan]%}%m%{$fg[blue]%}%B]-%b%{$fg[blue]%}%B[%b%{$fg[white]%}%~%{$fg[blue]%}%B]%b
+%{$fg[cyan]%}%B>>>%b%{$reset_color%} "
+
+# Set Git status format (adjust as needed)
+zstyle ':vcs_info:git:*' formats '%b (%B%R%b)%n'
+RPROMPT="%F{241}%B%t%b%f"
 ## Path section
 # Set $PATH if ~/.local/bin exist
 if [ -d "$HOME/.local/bin" ]; then
@@ -9,6 +29,7 @@ fi
 #     echo -ne "\033]0; $USER@$HOST:${PWD/$HOME/~} \007"
 # }
 # precmd_functions+=(set_win_title)
+
 
 pokemon-colorscripts --no-title -s -r
 
@@ -24,9 +45,12 @@ pokemon-colorscripts --no-title -s -r
 
  # Use zsh-vi-mode
 source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
 # Use fzf
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+# fzf-tab
+source ~/.config/zsh/plugins/fzf-tab.plugin.zsh
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
@@ -36,56 +60,34 @@ source /usr/share/fzf/completion.zsh
 [[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
 
-## Options section
-setopt correct                                                  # Auto correct mistakes
-setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-setopt nocaseglob                                               # Case insensitive globbing
-setopt rcexpandparam                                            # Array expension with parameters
-setopt nocheckjobs                                              # Don't warn about running processes when exiting
-setopt numericglobsort                                          # Sort filenames numerically when it makes sense
-setopt nobeep                                                   # No beep
-setopt appendhistory                                            # Immediately append history instead of overwriting
-setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
-setopt autocd                                                   # if only directory path is entered, cd there.
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushdminus
 
-# Completion.
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-zstyle ':completion:*' rehash true                              # automatically find new executables in path
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' menu select
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
+# HISTFILE=~/.zhistory
+# HISTSIZE=50000
+# SAVEHIST=10000
 
-# Speed up completions
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.cache/zcache
-
-# automatically load bash completion functions
-autoload -U +X bashcompinit && bashcompinit
-
-HISTFILE=~/.zhistory
-HISTSIZE=50000
-SAVEHIST=10000
-
+export KEYTIMEOUT=1  # makess the switch between nodes quicker
 
 
 
 eval "$(zoxide init zsh)"
 eval "$(mcfly init zsh)"
+# eval "$(mcfly-fzf init zsh)"
 
 source ~/.config/zsh/aliases
 source ~/.config/zsh/functions
+source ~/.config/zsh/completion.zsh
+source ~/.config/zsh/options
 ## Run fastfetch
 # fastfetch
 
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+ # source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+      # ctrl_l() {
+      #     builtin print -rn -- $'\r\e[0J\e[H\e[22J' >"$TTY"
+      #     builtin zle .reset-prompt
+      #     builtin zle -R
+      # }
+      # zle -N ctrl_l
+      # bindkey '^l' ctrl_l
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+ # [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

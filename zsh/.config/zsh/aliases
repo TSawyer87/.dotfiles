@@ -12,16 +12,23 @@ alias ll='exa -l --color=always --group-directories-first --icons'  # long forma
 alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
 alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
 
+# +------+
+# | paru |
+# +------+
 # Replace some more things with better alternatives
 alias cat='bat --style header --style snip --style changes --style header'
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
+
+# +--------+
+# | pacman |
+# +--------+
 
 # Common use
 alias grubup="sudo update-grub"
 alias fixpacman="sudo rm /var/lib/pacman/db.lck"
 alias tarnow='tar -acf '
 alias untar='tar -zxvf '
-alias wget='wget -c '
+alias wget="wget -c --user-agent 'noleak'"
 alias rmpkg="sudo pacman -Rdd"
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
@@ -41,6 +48,13 @@ alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages acc
 alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
 alias ip='ip -color'
 alias inxi='inxi -Fxz'
+alias dd='dd status=progress'
+alias cp='cp -i'
+alias mv='mv -i'
+alias df='df -h'
+alias free='free -h'
+alias du='du -h'
+alias shred="shred -zf"
 
 # Get fastest mirrors
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
@@ -101,6 +115,12 @@ alias rm='rm -iv'
 alias la='ls -alh'
 
 # +------+
+# | dirs |
+# +------+
+# d will display the directories on the stack
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+# +------+
 # | xlip |
 # +------+
 
@@ -159,9 +179,6 @@ alias paccc='sudo pacman -Scc'            # empty the whole cache
 
 alias fonts='fc-cache -f -v'
 
-# +-----+
-# | paru |
-# +-----+
 
 
 # +--------+
@@ -212,13 +229,17 @@ alias nvimd='nvim --noplugin -u NONE'             # launch nvim without any plug
 alias nvimfr='nvim +e /tmp/scratchpad.md -c'
 alias lvim='\vim -c "set nowrap|syntax off"'        # fast vim for big files / big oneliner
 alias vid='neovide'
+alias vc="NVIM_APPNAME=nvchad nvim"
+alias vz="NVIM_APPNAME=lazy nvim"
+alias vj="NVIM_APPNAME=jrvim nvim"
+alias vb="NVIM_APPNAME=neobean nvim"
 
 # +-------+
 # | Kitty |
 # +-------+
 
 alias icat="kitty +kitten icat"
-alias d="kitten diff"
+# alias d="kitten diff"
 
 # +--------+
 # | Python |

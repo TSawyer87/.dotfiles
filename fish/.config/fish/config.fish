@@ -149,6 +149,7 @@ alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 
 zoxide init fish | source
 mcfly init fish | source
+mcfly-fzf init fish | source
 
 
 # Replace classic tools with modern alternatives
@@ -193,6 +194,9 @@ alias vdir 'vdir --color=auto'
 alias wget 'wget -c '
 alias vi 'nvim'
 alias vc 'NVIM_APPNAME=nvchad nvim'
+alias vz 'NVIM_APPNAME=lazy nvim'
+alias vj 'NVIM_APPNAME=jrvim nvim'
+alias vb 'NVIM_APPNAME=neobean nvim'
 alias hx 'helix'
 
 

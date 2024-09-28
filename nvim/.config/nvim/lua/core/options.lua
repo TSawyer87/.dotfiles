@@ -5,10 +5,6 @@ vim.g.maplocalleader = " "
 -- LazyVim auto format
 vim.g.autoformat = true
 
--- LazyVim picker to use.
--- Can be one of: telescope, fzf
--- Leave it to "auto" to automatically use the picker
--- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = "auto"
 
 -- LazyVim root dir detection
@@ -18,15 +14,12 @@ vim.g.lazyvim_picker = "auto"
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
--- Set the options you want to override in `~/.config/lazygit/custom.yml`
--- WARN: on Windows you might want to set `editPreset: "nvim"` due to
--- this issue https://github.com/jesseduffield/lazygit/issues/3467
 vim.g.lazygit_config = true
 
 -- Options for the LazyVim statuscolumn
 vim.g.lazyvim_statuscolumn = {
-    folds_open = true, -- show fold sign when fold is open
-    folds_githl = false, -- highlight fold sign with git sign color
+  folds_open = true, -- show fold sign when fold is open
+  folds_githl = false, -- highlight fold sign with git sign color
 }
 
 -- Hide deprecation warnings
@@ -41,6 +34,7 @@ vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 -- Show the current document symbols location from Trouble in lualine
 -- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
 vim.g.trouble_lualine = true
+vim.g.navic_lualine = true
 
 local opt = vim.opt
 
@@ -55,12 +49,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-    foldopen = "",
-    foldclose = "",
-    fold = " ",
-    foldsep = " ",
-    diff = "╱",
-    eob = " ",
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
 }
 opt.foldlevel = 99
 opt.formatexpr = "v:lua.vim.lsp.formatexpr()"
@@ -80,7 +74,7 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions =
-    { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+  { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -108,24 +102,24 @@ opt.wrap = false -- Disable line wrap
 opt.gp = "rg"
 
 if vim.fn.has("nvim-0.10") == 1 then
-    opt.smoothscroll = true
-    -- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-    opt.foldmethod = "expr"
-    opt.foldtext = ""
+  opt.smoothscroll = true
+  -- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  opt.foldmethod = "expr"
+  opt.foldtext = ""
 else
-    opt.foldmethod = "indent"
-    -- opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+  opt.foldmethod = "indent"
+  -- opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
 -- lazy load shada
 local shada = vim.o.shada
 vim.o.shada = ""
 vim.api.nvim_create_autocmd("User", {
-    pattern = "VeryLazy",
-    callback = function()
-        vim.o.shada = shada
-        pcall(vim.cmd.rshada, { bang = true })
-    end,
+  pattern = "VeryLazy",
+  callback = function()
+    vim.o.shada = shada
+    pcall(vim.cmd.rshada, { bang = true })
+  end,
 })
 
 -- Fix markdown indentation settings
