@@ -64,7 +64,7 @@ end
 ## Starship prompt
 
 if status --is-interactive
-   source ("/usr/local/bin/starship" init fish --print-full-init | psub)
+   source ("/usr/bin/starship" init fish --print-full-init | psub)
 end
 
 ## Advanced command-not-found hook
@@ -149,7 +149,7 @@ alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 
 zoxide init fish | source
 mcfly init fish | source
-mcfly-fzf init fish | source
+# mcfly-fzf init fish | source
 
 
 # Replace classic tools with modern alternatives
@@ -333,5 +333,10 @@ set -gx GOROOT $HOME/.go
 set -gx PATH $GOPATH/bin $PATH
 # g-install: do NOT edit, see https://github.com/stefanmaric/g
 alias ggovm="$GOPATH/bin/g"
+
+set -Ux PYENV_ROOT $HOME/.pyenv
+fish_add_path $PYENV_ROOT/bin
+pyenv init - | source
+
 fastfetch
 
