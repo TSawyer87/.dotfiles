@@ -4,7 +4,7 @@
 yad --width=530 --height=620 \
 --center \
 --fixed \
---title="Garuda Hyprland Keybindings" \
+--title="Jr's Hyprland Keybindings" \
 --no-buttons \
 --list \
 --column=Key: \

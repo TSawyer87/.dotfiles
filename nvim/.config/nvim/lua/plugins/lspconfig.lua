@@ -245,11 +245,11 @@ return {
         },
       })
 
-      require("lspconfig").htmx.setup({})
-
       require("lspconfig").awk_ls.setup({})
 
       require("lspconfig").marksman.setup({})
+
+      require("lspconfig").hyprls.setup({})
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install

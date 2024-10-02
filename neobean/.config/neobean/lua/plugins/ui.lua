@@ -1,18 +1,24 @@
 return {
   -- ui components
   { "MunifTanjim/nui.nvim", lazy = true },
+  {
+    "norcalli/nvim-colorizer.lua",
+    cmd = { "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers", "ColorizerDetachFromBuffer", "ColorizerToggle" },
+    config = true,
+  },
 
   {
     "nvimdev/dashboard-nvim",
     lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
     opts = function()
       local logo = [[
-             ██╗   ██╗██╗███╗   ███╗          Z
-             ██║   ██║██║████╗ ████║      Z
-             ██║   ██║██║██╔████╔██║   z
-             ╚██╗ ██╔╝██║██║╚██╔╝██║ z
-              ╚████╔╝ ██║██║ ╚═╝ ██║
-               ╚═══╝  ╚═╝╚═╝     ╚═╝
+
+██╗      █████╗ ███████╗██╗   ██╗         Z
+██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝      Z
+██║     ███████║  ███╔╝  ╚████╔╝    z
+██║     ██╔══██║ ███╔╝    ╚██╔╝   z
+███████╗██║  ██║███████╗   ██║
+╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝
         ]]
 
       logo = string.rep("\n", 8) .. logo .. "\n\n"
@@ -143,4 +149,23 @@ return {
       require("nvim-web-devicons").setup()
     end,
   },
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   event = "User FilePost",
+  --   opts = {
+  --     user_default_options = { names = false },
+  --     filetypes = {
+  --       "*",
+  --       "!lazy",
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("colorizer").setup(opts)
+  --
+  --     -- execute colorizer as soon as possible
+  --     vim.defer_fn(function()
+  --       require("colorizer").attach_to_buffer(0)
+  --     end, 0)
+  --   end,
+  -- },
 }

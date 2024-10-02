@@ -33,7 +33,9 @@ if type "qtile" >> /dev/null 2>&1
    set -x QT_QPA_PLATFORMTHEME "qt5ct"
 end
 
+
 # Set settings for https://github.com/franciscolourenco/done
+pokemon-colorscripts --no-title -r
 
 set -U __done_min_cmd_duration 10000
 set -U __done_notification_urgency_level low
@@ -64,7 +66,7 @@ end
 ## Starship prompt
 
 if status --is-interactive
-   source ("/usr/bin/starship" init fish --print-full-init | psub)
+   source ("/usr/local/bin/starship" init fish --print-full-init | psub)
 end
 
 ## Advanced command-not-found hook
@@ -338,5 +340,7 @@ set -Ux PYENV_ROOT $HOME/.pyenv
 fish_add_path $PYENV_ROOT/bin
 pyenv init - | source
 
-fastfetch
+direnv hook fish | source
+
+# fastfetch
 

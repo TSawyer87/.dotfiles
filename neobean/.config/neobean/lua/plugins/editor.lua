@@ -1,4 +1,28 @@
 return {
+  -- UTILS
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = "UiEnter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "RRethy/nvim-treesitter-textsubjects",
+      "RRethy/nvim-treesitter-endwise",
+    },
+    config = function()
+      require("config.treesitter")
+    end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    event = "VeryLazy",
+    config = function()
+      require("config.folds")
+    end,
+  },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -77,5 +101,40 @@ return {
     version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
+  },
+  -- DAP
+  {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+      "neovim/nvim-lspconfig",
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+          "nvim-neotest/nvim-nio",
+        },
+      },
+      "jay-babu/mason-nvim-dap.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+    },
+    config = function()
+      require("config.dap")
+    end,
+  },
+  {
+    "leoluz/nvim-dap-go",
+    lazy = true,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    lazy = true,
+  },
+  {
+    "jbyuki/one-small-step-for-vimkind",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    lazy = true,
   },
 }
