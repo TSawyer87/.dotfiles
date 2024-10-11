@@ -89,13 +89,6 @@ return {
     end,
   },
   {
-    -- Codeium AI
-    {
-      "Exafunction/codeium.vim",
-      event = "BufEnter",
-    },
-  },
-  {
     "karb94/neoscroll.nvim",
     enabled = true,
     event = "VeryLazy",
