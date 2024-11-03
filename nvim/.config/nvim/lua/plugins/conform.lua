@@ -15,6 +15,10 @@ return {
         liquid = { "prettier" },
         lua = { "stylua" },
         python = { "ruff" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
+        zsh = { "shfmt" },
+        fish = { "fish_indent" },
       },
       format_on_save = {
         lsp_fallback = true,

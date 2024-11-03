@@ -7,21 +7,23 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 -- This is where you actually apply your config choices
-
 -- Font Settings
 config.font = wezterm.font("JetBrains Mono")
-config.font_size = 15
+config.font_size = 12
 config.line_height = 1.2
 config.adjust_window_size_when_changing_font_size = false
 config.use_dead_keys = false
 config.enable_scroll_bar = true
-config.window_background_opacity = 0.88
-config.window_decorations = "RESIZE"
+config.window_background_opacity = 0.80
+config.window_decorations = "NONE"
 config.scrollback_lines = 3000
 config.default_workspace = "home"
+config.default_prog = { "/usr/bin/zsh", "-l" }
 -- For example, changing the color scheme:
-config.color_scheme = "nightfox"
+config.color_scheme = "Dracula"
+config.window_padding = { left = "1cell", right = "1cell", top = 0, bottom = 0 }
 -- Dim inactive panes
 config.inactive_pane_hsb = {
 	saturation = 0.7,
@@ -85,7 +87,7 @@ config.key_tables = {
 	},
 }
 -- Tab Bar
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 config.status_update_interval = 1000
 wezterm.on("update-right-status", function(window, pane)
 	-- Workspace name
@@ -126,7 +128,8 @@ wezterm.on("update-right-status", function(window, pane)
 end)
 -- Move tab bar to the bottom
 config.tab_bar_at_bottom = true
--- config.hide_tab_bar_if_only_one_tab = true
-
+config.hide_tab_bar_if_only_one_tab = true
+-- bar
+bar.apply_to_config(config, { enabled_modules = { hostname = false } })
 -- Apply the configuration to WezTerm
 return config

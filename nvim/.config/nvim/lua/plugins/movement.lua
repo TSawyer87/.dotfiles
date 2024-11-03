@@ -14,12 +14,12 @@ return {
     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
   },
   },
-  {
-    "smoka7/hop.nvim",
-    version = "*",
-    event = "VimEnter",
-    config = function()
-      require("plugins.configs.hop")
-    end,
-  },
+  -- {
+  --   "smoka7/hop.nvim",
+  --   version = "*",
+  --   event = "VimEnter",
+  --   config = function()
+  --     require("plugins.configs.hop")
+  --   end,
+  -- },
 }
