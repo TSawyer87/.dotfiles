@@ -28,7 +28,7 @@ select = "underline"
 
 [editor.soft-wrap]
 enable = true
-wrap-at-text-width = true
+# wrap-at-text-width = true
 wrap-indicator = ""
 [editor.statusline]
 left = ["mode", "spinner"]

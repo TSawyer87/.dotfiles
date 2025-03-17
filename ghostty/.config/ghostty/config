@@ -1,0 +1,13 @@
+theme = tokyonight
+
+font-size = 13
+
+background-opacity = 0.8
+background-blur = true
+background-blur-radius = 10
+unfocused-split-opacity = 1
+
+shell-integration = zsh
+gtk-titlebar = false
+
+confirm-close-surface = false
