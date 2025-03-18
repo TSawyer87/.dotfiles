@@ -1,0 +1,33 @@
+rm -rf nushell
+mkdir nushell
+nushell/
+ls
+hx config.nu
+hx env.nu
+hx config.nu
+source config.nu
+z
+z nush
+ls
+hx env.nu
+source config.nu
+ls
+z nush
+hx config.nu
+z hypr
+ls
+hx keybinds.conf
+ls
+hx execs.conf
+hypridle --version
+nushell --help
+man nushell
+tldr nushell
+tldr --update
+ls
+z
+notes/2nd_brain/
+stow/
+ls
+which nu
+chsh -s /usr/bin/nu
