@@ -27,9 +27,10 @@ elseif platform.is_mac then
       { label = 'Zsh', args = { 'zsh', '-l' } },
    }
 elseif platform.is_linux then
-   options.default_prog = { 'zsh', '-l' }
+   -- options.default_prog = { 'zsh', '-l' }
+   options.default_prog = { '/usr/bin/nu'}
    options.launch_menu = {
-      { label = 'Nushell', args = { '/home/jr/.cargo/bin/nu', '-l' } },
+      -- { label = 'Nushell', args = { '/home/jr/.cargo/bin/nu', '-l' } },
       { label = 'Bash', args = { 'bash', '-l' } },
    }
 end

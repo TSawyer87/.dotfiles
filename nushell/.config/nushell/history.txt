@@ -31,3 +31,259 @@ stow/
 ls
 which nu
 chsh -s /usr/bin/nu
+ls
+hx
+ls
+cat /etc/shells
+echo $SHELL
+echo $env.SHELL
+ls | sort-by size | reverse 
+ls | where size > 10kb
+ls | where size > 4kb
+ps | where status == Running
+ps
+help ls
+help fzf
+fzf
+ls *.md
+z rust
+ls *.md
+ls 
+z 
+notes/2nd_brain/garuda_hypr
+notes/2nd_brain/arch/
+ls
+ls *.md
+ls *ps.md
+ls *xdg
+ls *xdg*
+hx xdg-mime.md
+jq --version
+echo $env.XDG_DATA_HOME
+ls
+z
+z nush
+ls
+mkdir modules
+modules/
+ls
+git clone https://github.com/nushell/nupm.git
+ls
+use nupm/nupm
+nupm install nupm --force --path
+..
+git clone https://github.com/amtoine/scripts
+ls
+[<\n>    nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager<\n>] | each { nupm install --path --force $in }
+modules/
+use nupm/nupm
+[<\n>    nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager<\n>] | each { nupm install --path --force $in }
+nupm install nu-clippy --force --path
+mkdir nu-clippy
+nupm install nu-clippy --force --path
+..
+hx env.nu
+$env.NU_LIB_DIRS
+nupm
+[<\n>    nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager<\n>] | each { nupm install --path --force $in }
+[ nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager ] | each { nupm install --path ~/.config/nushell/scripts --force $in }
+ls
+[ nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager ] | each { nupm install --path ~/.config/nushell/scripts --force $in }
+[ nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager ] | each { nupm install --path ~/.config/nushell/scripts $in --force }
+[ nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager ] | each { |pkg| nupm install --path ~/.config/nushell/scripts ( $pkg | to string ) --force }
+nupm install nu-clippy --force --path
+nupm install --path --force nu-clippy
+nupm install --path ~/.config/nushell/scripts nu-clippy --force
+y
+yaz
+yazi
+z nush
+ls
+scripts/
+[<\n>    nu-clippy, nu-logout, nu-scripts, nu-sound-manager, nu-monitor-manager<\n>] | each { nupm install --path --force $in }
+nupm
+..
+nupm
+source config.nu
+nupm
+ls
+hx env.nu
+nupm
+ls
+reboot
+nupm
+z nush
+ls
+$env.XDG_DATA_HOME
+hx env.nu
+nupm
+modules/
+use nupm/nupm
+nupm install nupm --force --path
+nupm
+..
+ls
+nupm
+z nush
+modules/
+use nupm/nupm
+nupm install nupm --force --path
+nupm
+~/.local/share/nupm/
+ls
+y
+yazi
+z nush
+hx env.nu
+y
+yazi
+hx config.nu
+source config.nu
+z nush
+hx config.nu
+source config.nu
+ls
+hx config.nu
+hx init.nu
+source config.nu
+hx init.nu
+source config.nu
+hx init.nu
+source config.nu
+hx init.nu
+source config.nu
+z nush
+ls
+nupm
+ls
+hx config.nu
+source config.nu
+nupm
+hx config.nu
+source config.nu
+y
+hx config.nu
+source config.nu
+jctl
+hx config.nu
+jctl
+hx config.nu
+source config.nu
+hx config.nu
+z .co
+ls
+hypr/
+ls
+hx hyprlock/
+vi hyprlock.conf
+z fast
+pngs/
+ls
+cp anon.png anon2.png
+mv anon2.png ~/Pictures/wallpapers/
+hx hyprlock.conf
+upd
+ls
+z nush
+config nu
+source config.nu
+ll
+ll -a
+hx config.nu
+source config.nu
+ls
+nupm/
+ls
+modules/
+ls
+nupm/
+ls
+...
+..
+ls
+...
+ls
+z
+cd
+.config/nushell/
+ls
+hx config.nu
+source config.nu
+nupm
+ls
+z nush
+hx init.nu
+ls
+source config.nu
+ls
+ll
+use std *
+ls
+4 * 4
+$env | table -e
+hx init.nu
+$env.PROMPT_COMMAND | describe
+FOO=BAR $env.FOO
+with-env { FOO: BAR } { $env.FOO }
+use std/dirs
+dirs
+cd
+dirs
+dirs add ~/.config/nushell
+dirs
+dirs 1
+1 dirs
+z
+ls
+dirs
+dirs add ~/.config/nushell/nu_scripts
+dirs
+shell-aliases *
+use std/dirs shells-aliases *
+shells-aliases *
+aliases
+$env.aliases
+shells
+dexit
+ls
+dirs
+repl
+commandline
+ls
+z nus
+ls
+nupm
+source config.nu
+nupm
+upd
+z nush
+hx config.nu
+source config.nu
+hx config.nu
+ls
+config nu
+hx init.nu
+git diff
+ls
+y
+hx config.nu
+source config.nu
+hx config.nu
+source config.nu
+ls
+hx config.nu
+source config.nu
+$env.XDG_DATA_HOME
+z nush
+hx env.nu
+source config.nu
+nupm
+.dotfiles/
+git add .
+z nush
+nu_scripts/
+ls -al
+rm -rf .git .github/ 
+ls
+z
+.dotfiles/
