@@ -41,6 +41,8 @@ language-servers = [ "scls" ]
 name = "markdown"
 language-servers = [ "marksman", "markdown-oxide" ]
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+text-width = 80
+
 [language.auto-pairs]
 '(' = ')'
 '{' = '}'

@@ -1,13 +1,32 @@
-theme = tokyonight
+# theme = tokyonight
+theme = Dracula+
+command = /usr/bin/nu
 
+font-family = "JetBrainsMono Nerd Font"
 font-size = 13
+font-style-bold = "Medium" 
+font-style-bold-italic = "Medium Italic "
+font-thicken = true
 
 background-opacity = 0.8
 background-blur = true
 background-blur-radius = 10
 unfocused-split-opacity = 1
+window-padding-balance = true
 
 shell-integration = zsh
 gtk-titlebar = false
 
 confirm-close-surface = false
+
+##KEYBINDINGS##
+keybind = ctrl+l=goto_split:right
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+shift+|=new_split:right
+keybind = ctrl+shift+_=new_split:down
+keybind = alt+n=new_window
+keybind = alt+t=new_tab
+keybind = alt+]=next_tab
+keybind = alt+[=previous_tab

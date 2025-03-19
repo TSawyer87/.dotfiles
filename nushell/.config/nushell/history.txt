@@ -287,3 +287,411 @@ rm -rf .git .github/
 ls
 z
 .dotfiles/
+git add .
+git commit -m "nushell"
+git push -u origin main
+z nush
+hx config.nu
+source config.nu
+xt
+x
+xa
+xl
+xla
+hx config.nu
+source config.nu
+xta
+x
+xt
+nu_scripts/
+ls
+hx config.nu
+source config.nu
+aliases/
+ls
+eza/
+ls
+hx config.nu
+source config.nu
+hx
+hx config.nu
+source config.nu
+xa
+xla
+hx config.nu
+source config.nu
+..
+ls
+hx config.nu
+source config.nu
+bn
+bn .ssh/id_rsa.pub
+z nush
+hx config.nu
+source config.nu
+y
+hx config.nu
+source config.nu
+hx config.nu
+source config.nu
+hi
+hf
+ls
+ll
+la
+xd
+x
+xl
+z nush
+hx config.nu
+source config.nu
+ll
+z nush
+hx config.nu
+source config.nu
+zoxide_menu
+hx config.nu
+source config.nu
+cc
+cn
+hx config.nu
+source config.nu
+paru -S pkgfile
+sudo systemctl enable pkgfile-update.timer
+sudo pacman -S expac
+expac -S -H M '%k\t%n' packages
+expac -H M '%m\t%n' | sort -h
+comm --version
+expac -d '\n\n' -l '\n\t' -Q '%n\n\t%O' $(pacman -Qeq)<\n><\n>
+localepurge
+shutdown
+ls
+.config/ghostty
+ls
+upd
+hx config
+z ghos
+hx config
+ls
+z nush
+ls
+...
+z nush
+hx config.nu
+source config.nu
+ls
+sudo nvim /etc/locale.nopurge
+localepurge
+sudo localepurge
+sudo hx /etc/pacman.conf
+sudo pacman -Syu
+cleanup
+ls
+source config.nu
+ls
+lg
+chsh -s /usr/bin/nu
+git config --global diff-so-fancy.rulerWidth 80
+git diff
+z
+.config/lazygit/
+ls
+hx config.yml
+lg
+z .do
+lg
+archlinux-contrib
+archlinux-contrib --version
+pacman -Qtd
+sudo pacman -S rebuild-detector
+python --version
+z scripts
+z
+scripts/
+hx rmshit.py
+python rmshit.py
+upd
+ls
+.config/ghostty
+ls
+hx config
+paru -S ttf-jetbrains-mono-nerd
+ls
+z ghost
+hx config
+ls
+z gho
+hx config
+z nush
+hx config.nu
+source config.nu
+z fast
+ls
+hx config.jsonc
+fastfetch
+c
+ghostty +validate-config
+ghostty +show-config
+aliases
+alias
+z ghost
+hx config
+ls
+z gh
+ls
+z
+ghostty +list-keybinds
+z ghost
+ghostty +list-keybinds
+z ghost
+hx config
+z ghost
+ghostty +list-keybinds
+hx config
+ls
+z ghost
+ghostty +list-keybinds
+hx config
+z wez
+ls
+hx wezterm.lua
+ls
+vi
+git clone https://github.com/dam9000/kickstart-modular.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+.config/nvim/
+.config/
+ls
+mkdir nvim
+git clone https://github.com/dam9000/kickstart-modular.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+nvim/
+ls
+z
+.local/share/
+ls
+z
+hx .zshrc
+nvim
+ls
+.config/nvim/
+ls
+lua/
+ls
+hx lazy-bootstrap.lua
+reboot
+nvim
+.config/
+rm -rf nvim
+z
+.dotfiles/
+ls
+stow nvim
+nvim
+vi
+z
+.local/share/
+rm -rf nvim
+..
+state/
+rm -rf nvim
+nvim
+z
+hx
+upd
+ls
+vi
+z hel
+z
+z helix
+hx languages.toml
+z
+notes/2nd_brain/rust/the_book/
+ls
+mkdir generics
+generics/
+hx traits.md
+z hel
+z helix
+hx languages.toml
+hx
+z rust
+z
+notes/2nd_brain/rust/the_book/
+generics/
+hx config.toml
+hx languages.toml
+hx
+hx languages.toml
+hx config.toml
+notes/2nd_brain/rust/the_book/
+generics/
+hx traits.md
+z
+hx textobjects.scm
+z helix
+ls
+z
+src/
+/etc/
+ls
+sudo pacman -S ufw
+sudo systemctl enable --now ufw && ufw enable
+sudo systemctl enable --now ufw
+sudo systemctl ufw enable
+sudo systemctl enable --now ufw ; ufw enable
+sudo systemctl enable --now ufw ; sudo ufw enable
+sudo pacman -S hblock
+hblock
+z nush
+hx config.nu
+source config.nu
+ls
+paru -S pfetch-rs
+pfetch
+z nush
+hx config.nu
+source config.nu
+z
+.mozilla/firefox/18lq8i3e.default-release/
+ls
+mkdir chrome
+chrome/
+git clone https://github.com/AnhNguyenlost13/GlassyFox.git
+.mozilla/firefox/18lq8i3e.default-release/
+ls
+chrome/
+ls
+mkdir -p styles/ASSETS/wallpaper/
+mkdir styles
+styles/
+mkdir ASSETS
+ASSETS/
+mkdir wallpaper
+wallpaper/
+Downloads/
+ls
+mv anime1.png wallpaper.png
+mv wallpaper.png ~/.mozilla/firefox/18lq8i3e.default-release/chrome/styles/ASSETS/wallpaper/
+z
+.mozilla/firefox/18lq8i3e.default-release/
+chrome/styles/ASSETS/wallpaper/
+ls
+...
+ls
+chrome/
+ls
+GlassyFox/
+ls
+y
+ls
+cp -r * ..
+..
+ls
+mv img/ screenshots/ styles/ userContent.css ..
+upd
+/etc/NetworkManager/
+sudo nvim NetworkManager.conf
+systemctl status iwd
+sudo pacman -S iwd
+sudo systemctl enable iwd
+sudo systemctl start iwd
+ping google.com
+ls
+upd
+systemctl status wpa_supplicant
+sudo nvim /etc/NetworkManager/NetworkManager.conf
+sudo systemctl stop wpa_supplicant
+sudo systemctl mask wpa_supplicant
+ping google.com
+nmtui
+sudo systemctl start iwd
+iwdctl
+reboot
+nmtui
+iwctl
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+sudo systemctl status iwd
+iwctl --passphrase smilingflamingo762 station wlan0 connect NETGEAR80
+paru -S impala
+paru -S iwgtk
+iwctl
+sudo systemctl unmask wpa_supplicant
+sudo systemctl enable wpa_supplicant
+sudo systemctl start wpa_supplicant
+nmtui
+reboot
+nmtui
+sudo nvim /etc/NetworkManager/NetworkManager.conf
+sudo systemctl stop iwd
+nmtui
+sudo systemctl start NetworkManager
+sudo systemctl start wpa_supplicant
+nmtui
+iwctl
+nmtui
+upd
+paru -S impala
+impala
+ls
+sudo pacman -S dhcpcd openresolv
+sudo systemctl stop NetworkManager wpa_supplicant
+sudo systemctl start iwd dhcpcd
+iwctl
+ping google.com
+ip addr
+sudo systemctl enable dhcpcd iwd
+sudo systemctl disable NetworkManager wpa_supplicant
+config nu
+hi
+hf
+hi
+sudo pacman -S clip
+wl-copy --version
+xclip --version
+sudo pacman -S xclip
+paru -S rose-pine-hyprcursor
+paru -S rosepine-cursor
+paru -S rose-pine-cursor
+sudo pacman -S smartmontools
+sudo systemctl start smartd
+sudo systemctl enable smartd
+sudo systemctl status smartd
+upd
+notes/2nd_brain/rust/the_book/generics/
+ls
+hx traits.md
+z
+rustlings
+rustlings/
+rustlings/exercises/03_if/
+hx if2.rs
+..
+quizzes/
+hx quiz1.rs
+..
+04_primitive_types/
+hx primitive_types1.rs
+..
+05_vecs/
+hx vecs1.rs
+..
+06_move_semantics/
+hx move_semantics1.rs
+..
+07_structs/
+ls
+z helix
+hx config.toml
+hx structs1.rs
+hx structs2.rs
+z rustl
+exercises/07_structs/
+upd
+z
+.dotfiles/
+stow helix
+stow hypr
+stow nushell
+git add .
+ls
+rm -rf nvim
