@@ -6,7 +6,7 @@ set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT 1
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -x SHELL /usr/bin/fish
-set -x EDITOR /usr/bin/nvim
+set -x EDITOR /usr/bin/hx
 
 set -g theme_nerd_fonts yes
 fish_vi_key_bindings
@@ -30,9 +30,8 @@ set -U __done_notification_urgency_level low
 ## Export variable need for qt-theme
 
 if type qtile >>/dev/null 2>&1
-    set -x QT_QPA_PLATFORMTHEME qt5ct
+	set -x QT_QPA_PLATFORMTHEME qt5ct
 end
-
 
 # Set settings for https://github.com/franciscolourenco/done
 pokemon-colorscripts --no-title -r
@@ -45,28 +44,28 @@ set -U __done_notification_urgency_level low
 # Apply .profile: use this to put fish compatible .profile stuff in
 
 if test -f ~/.fish_profile
-    source ~/.fish_profile
+	source ~/.fish_profile
 end
 
 # Add ~/.local/bin to PATH
 if test -d ~/.local/bin
-    if not contains -- ~/.local/bin $PATH
-        set -p PATH ~/.local/bin
-    end
+	if not contains -- ~/.local/bin $PATH
+		set -p PATH ~/.local/bin
+	end
 end
 
 # Add depot_tools to PATH
 
 if test -d ~/Applications/depot_tools
-    if not contains -- ~/Applications/depot_tools $PATH
-        set -p PATH ~/Applications/depot_tools
-    end
+	if not contains -- ~/Applications/depot_tools $PATH
+		set -p PATH ~/Applications/depot_tools
+	end
 end
 
 ## Starship prompt
 
 if status --is-interactive
-    source ("/usr/bin/starship" init fish --print-full-init | psub)
+	source ("/usr/bin/starship" init fish --print-full-init | psub)
 end
 
 ## Advanced command-not-found hook
@@ -78,62 +77,62 @@ end
 # Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
 
 function __history_previous_command
-    switch (commandline -t)
-        case "!"
-            commandline -t $history[1]
-            commandline -f repaint
-        case "*"
-            commandline -i !
-    end
+	switch (commandline -t)
+		case "!"
+			commandline -t $history[1]
+			commandline -f repaint
+		case "*"
+			commandline -i !
+	end
 end
 
 function __history_previous_command_arguments
-    switch (commandline -t)
-        case "!"
-            commandline -t ""
-            commandline -f history-token-search-backward
-        case "*"
-            commandline -i '$'
-    end
+	switch (commandline -t)
+		case "!"
+			commandline -t ""
+			commandline -f history-token-search-backward
+		case "*"
+			commandline -i '$'
+	end
 end
 
 if [ "$fish_key_bindings" = fish_vi_key_bindings ]
-    bind -Minsert ! __history_previous_command
-    bind -Minsert '$' __history_previous_command_arguments
+	bind -Minsert ! __history_previous_command
+	bind -Minsert '$' __history_previous_command_arguments
 else
-    bind ! __history_previous_command
-    bind '$' __history_previous_command_arguments
+	bind ! __history_previous_command
+	bind '$' __history_previous_command_arguments
 end
 
 # Fish command history
 
 function history
-    builtin history --show-time='%F %T '
+	builtin history --show-time='%F %T '
 end
 
 function backup --argument filename
-    cp $filename $filename.bak
+	cp $filename $filename.bak
 end
 
 # Copy DIR1 DIR2
 
 function copy
-    set count (count $argv | tr -d \n)
-    if test "$count" = 2; and test -d "$argv[1]"
-        set from (echo $argv[1] | trim-right /)
-        set to (echo $argv[2])
-        command cp -r $from $to
-    else
-        command cp $argv
-    end
+	set count (count $argv | tr -d \n)
+	if test "$count" = 2; and test -d "$argv[1]"
+		set from (echo $argv[1] | trim-right /)
+		set to (echo $argv[2])
+		command cp -r $from $to
+	else
+		command cp $argv
+	end
 end
 
 # Cleanup local orphaned packages
 
 function cleanup
-    while pacman -Qdtq
-        sudo pacman -R (pacman -Qdtq)
-    end
+	while pacman -Qdtq
+		sudo pacman -R (pacman -Qdtq)
+	end
 end
 
 # FZF
@@ -154,7 +153,6 @@ zoxide init fish | source
 mcfly init fish | source
 # mcfly-fzf init fish | source
 
-
 # Replace classic tools with modern alternatives
 
 alias ls 'eza -al --color=always --group-directories-first --icons' # preferred listing
@@ -166,7 +164,7 @@ alias l. 'eza -ald --color=always --group-directories-first --icons .*' # show o
 alias cat 'bat --style header --style snip --style changes --style header'
 
 if not test -x /usr/bin/yay; and test -x /usr/bin/paru
-    alias yay paru
+	alias yay paru
 end
 
 # Commonly useful alias
@@ -200,8 +198,8 @@ alias vc 'NVIM_APPNAME=nvchad nvim'
 alias vz 'NVIM_APPNAME=lazy nvim'
 alias vj 'NVIM_APPNAME=jrvim nvim'
 alias vb 'NVIM_APPNAME=neobean nvim'
-alias hx helix
-
+alias y yazi
+alias c clear
 
 # Get fastest mirrors
 
@@ -232,109 +230,99 @@ alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 # Abstractions for better readability
 
 function no_error_output
-    $argv 2>/dev/null
+	$argv 2>/dev/null
 end
-
 
 function parameter_is_provided
-    set -q argv[1]
+	set -q argv[1]
 end
-
 
 function command_failed
-    test $status -eq 1
+	test $status -eq 1
 end
-
 
 function newline
-    echo ""
+	echo ""
 end
-
 
 function updated
-    test 2400 -ge (path mtime --relative /var/log/pacman.log) && # Prevents that updates run even if the system has been updated recently.
-        string match -rq "System is updated" (tail -2 /var/log/pacman.log) # Prevents that canceled updates count as complete updates.
+	test 2400 -ge (path mtime --relative /var/log/pacman.log) && # Prevents that updates run even if the system has been updated recently.
+		string match -rq "System is updated" (tail -2 /var/log/pacman.log) # Prevents that canceled updates count as complete updates.
 end
-
 
 function log_update
-    echo [(date +"%Y-%m-%dT%T%z")] [FISH] System is updated | sudo tee -a /var/log/pacman.log >/dev/null
+	echo [(date +"%Y-%m-%dT%T%z")] [FISH] System is updated | sudo tee -a /var/log/pacman.log >/dev/null
 end
-
 
 # add and friends
 
-
 function add --wraps "paru -S"
-    if not updated
-        update --skip-mirrorlist --noconfirm &&
-            paru -Sua --skipreview --useask --noconfirm &&
-            sudo pkgfile --update &&
-            log_update &&
-            add $argv
-    else
-        newline
-        set_color green
-        echo "System is up to date."
-        set_color normal && newline
+	if not updated
+		update --skip-mirrorlist --noconfirm &&
+			paru -Sua --skipreview --useask --noconfirm &&
+			sudo pkgfile --update &&
+			log_update &&
+			add $argv
+	else
+		newline
+		set_color green
+		echo "System is up to date."
+		set_color normal && newline
 
-        if parameter_is_provided $argv
-            no_error_output sudo pacman -S --noconfirm $argv &&
-                log_update
-            if command_failed
-                no_error_output paru -S --aur --skipreview --useask --noconfirm $argv &&
-                    log_update
-                if command_failed
-                    newline && search $argv
-                end
-            end
-        end
-    end
+		if parameter_is_provided $argv
+			no_error_output sudo pacman -S --noconfirm $argv &&
+				log_update
+			if command_failed
+				no_error_output paru -S --aur --skipreview --useask --noconfirm $argv &&
+					log_update
+				if command_failed
+					newline && search $argv
+				end
+			end
+		end
+	end
 end
-
 
 function search --wraps "paru -Ss"
-    set -l success no
-    paru -Ss --aur $argv; and set success yes; and newline
-    pacman -Ss $argv; and set success yes; and newline
-    no_error_output pacman -Qi $argv; and set success yes
-    if test $success = no
-        read -p 'set_color green; echo -n "$prompt No results found. Do you like to look up package files? [Y/n]: "; set_color normal' -l confirm
-        switch $confirm
-            case Y y ''
-                pkgfile -vri $argv
-            case N n
-                return 1
-        end
-    end
+	set -l success no
+	paru -Ss --aur $argv; and set success yes; and newline
+	pacman -Ss $argv; and set success yes; and newline
+	no_error_output pacman -Qi $argv; and set success yes
+	if test $success = no
+		read -p 'set_color green; echo -n "$prompt No results found. Do you like to look up package files? [Y/n]: "; set_color normal' -l confirm
+		switch $confirm
+			case Y y ''
+				pkgfile -vri $argv
+			case N n
+				return 1
+		end
+	end
 end
-
 
 function remove --wraps "pacman -Runs"
-    sudo pacman -Runs --noconfirm $argv
-    if command_failed
-        sudo pacman -Rcns $argv
-        if not command_failed
-            echo "You can always rollback to a previous state of your system, simply by selecting 'Garuda Snapshots' in the boot menu."
-        end
-    end
+	sudo pacman -Runs --noconfirm $argv
+	if command_failed
+		sudo pacman -Rcns $argv
+		if not command_failed
+			echo "You can always rollback to a previous state of your system, simply by selecting 'Garuda Snapshots' in the boot menu."
+		end
+	end
 end
 
-
 function commit
-    if parameter_is_provided $argv
-        git add .
-        git commit -am "$argv"
-        git push
-    else
-        newline
-        echo "Please provide a commit message:" && newline
-        set_color blue
-        printf "commit "
-        set_color green
-        printf "\"this is a commit message\""
-        set_color normal
-    end
+	if parameter_is_provided $argv
+		git add .
+		git commit -am "$argv"
+		git push
+	else
+		newline
+		echo "Please provide a commit message:" && newline
+		set_color blue
+		printf "commit "
+		set_color green
+		printf "\"this is a commit message\""
+		set_color normal
+	end
 end
 
 set -gx GOPATH $HOME/go
@@ -343,15 +331,15 @@ set -gx PATH $GOPATH/bin $PATH
 # g-install: do NOT edit, see https://github.com/stefanmaric/g
 alias ggovm="$GOPATH/bin/g"
 
-set -Ux PYENV_ROOT $HOME/.pyenv
-fish_add_path $PYENV_ROOT/bin
-pyenv init - | source
+set PATH $PATH ~/.cargo/bin
+# set -Ux PYENV_ROOT $HOME/.pyenv
+# fish_add_path $PYENV_ROOT/bin
+# pyenv init - | source
 
 direnv hook fish | source
 
 # fastfetch
 
-
 # bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+# set --export BUN_INSTALL "$HOME/.bun"
+# set --export PATH $BUN_INSTALL/bin $PATH

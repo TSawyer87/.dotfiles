@@ -64,34 +64,42 @@ url\t'show a helpful url related to the fish-lsp'
 complete\t'generate completions file for ~/.config/fish/completions'
 env\t'generate fish shell env variables to be used by lsp'"
 
+# fish-lsp --<TAB>
+complete -c fish-lsp -n 'not __fish_lsp_using_command start logger info url complete env' -s v -l version      -d 'Show lsp version'
+complete -c fish-lsp -n 'not __fish_lsp_using_command start logger info url complete env' -s h -l help         -d 'Show help information'
+complete -c fish-lsp -n 'not __fish_lsp_using_command start logger info url complete env'      -l help-all     -d 'Show all help information'
+complete -c fish-lsp -n 'not __fish_lsp_using_command start logger info url complete env'      -l help-short   -d 'Show short help information'
+complete -c fish-lsp -n 'not __fish_lsp_using_command start logger info url complete env'      -l help-man     -d 'Show raw manpage'
+
+
 set __fish_lsp_subcommands start
 
-# fish_lsp [start] --<TAB> 
+# fish_lsp start --<TAB> 
 complete -c fish-lsp -n '__fish_seen_subcommand_from $__fish_lsp_subcommands' -a "
 --dump\t'dump output and stop server'
 --enable\t'enable feature'
 --disable\t'disable feature'"
 
 # fish-lsp url --<TAB>
-complete -c fish-lsp -n "__fish_seen_subcommand_from url" -a "
---repo	'show git url'
---git	'show git url'
---npm	'show npm url'
---homepage	'show homepage url'
---contributions	'show git contributions url'
---wiki	'show git wiki url'
---issues	'show git issues url'
---report	'show git issues url'
---discussions	'show git discussions url'
---clients-repo	'show git clients-repo url'
---sources	'show useful list of sources'"
+complete -c fish-lsp -n __fish_use_subcommand -xa url -d "url's for fish-lsp cli"
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt repo'          -l repo          -d 'show git repo url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt git'           -l git           -d 'show git repo url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt npm'           -l npm           -d 'show npmjs.com url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt homepage'      -l homepage      -d 'show website url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt contributions' -l contributions -d 'show git contributions url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt wiki'          -l wiki          -d 'show git wiki url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt issues'        -l issues        -d 'show git issues url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt report'        -l report        -d 'show git issues url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt discussions'   -l discussions   -d 'show git discussions url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt clients-repo'  -l clients-repo  -d 'show git clients-repo url'
+complete -c fish-lsp -n '__fish_lsp_using_command url; and not __fish_contains_opt sources'       -l sources       -d 'show useful url list of sources'
 
 # fish-lsp complete <TAB>
 complete -c fish-lsp -n __fish_use_subcommand -a complete -d 'completion utils for fish-lsp cli'
-complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt features' -l features -d 'show features'
-complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt fish'     -l fish     -d 'show completion/fish-lsp.fish'
-complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt names'    -l names    -d 'show feature names of completions'
-complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt toggle'   -l toggle   -d 'show feature names of completions'
+complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt features' -l features  -d 'show features'
+complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt fish'     -l fish      -d 'show completion/fish-lsp.fish'
+complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt names'    -l names     -d 'show feature names of completions'
+complete -c fish-lsp -n '__fish_lsp_using_command complete; and not __fish_contains_opt toggles'  -l toggles   -d 'show feature names of completions'
 
 # fish-lsp info --<TAB>
 complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_opt bin'           -l bin            -d 'show the binary path'
@@ -103,6 +111,7 @@ complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_
 complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_opt man-file'      -l man-file       -d 'show man file path'
 complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_opt logs-file'     -l logs-file      -d 'show logs.txt file path'
 complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_opt more'          -l more           -d 'show more info'
+complete -c fish-lsp -n '__fish_lsp_using_command info; and not __fish_contains_opt time-startup'  -l time-startup   -d 'show startup timing info'
 
 # fish-lsp logger --<TAB>
 complete -c fish-lsp -n __fish_use_subcommand -x -a logger -d 'logger utilities'
@@ -114,7 +123,7 @@ complete -c fish-lsp -n '__fish_lsp_using_command logger; and not __fish_contain
 
 # print all $fish_lsp_submcommands
 function _fish_lsp_get_features
-  printf %b\n complete hover rename reference formatting codeAction codeLens folding signature executeCommand inlayHint highlight diagnostic
+  printf %b\n complete hover rename reference formatting codeAction codeLens folding signature executeCommand inlayHint highlight diagnostic popups
 end
 
 # fish-lsp env --<TAB>
@@ -122,10 +131,15 @@ complete -c fish-lsp -n __fish_use_subcommand -x -a env -d 'generate fish shell 
 complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt -s s show; and not __fish_contains_opt -s c create' -s s -l show        -d 'show the current fish-lsp env variables'
 complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt -s c create; and not __fish_contains_opt -s s show' -s c -l create      -d 'build initial fish-lsp env variables'
 complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt no-comments'                                             -l no-comments -d 'skip outputting comments'
+complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt no-global'                                               -l no-global   -d 'use local exports'
+complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt no-local'                                                -l no-local    -d 'do not use local scope (pair with --no-global)'
+complete -c fish-lsp -n '__fish_lsp_using_command env; and not __fish_contains_opt no-export'                                               -l no-export   -d 'do not export variables'
 
 # COMPLETION: fish-lsp subcmd <option> [VALUE] (`fish-lsp start --enable ...`)
 complete -c fish-lsp -n '__fish_seen_subcommand_from $__fish_lsp_subcommands' -l enable -xa '(_fish_lsp_get_features)'
 complete -c fish-lsp -n '__fish_seen_subcommand_from $__fish_lsp_subcommands' -l disable -xa '(_fish_lsp_get_features)'
 
-# built by the command: 
-# fish-lsp complete ~/.config/fish/completions/fish-lsp.fish
+# built by any of the commands: 
+# fish-lsp complete > ~/.config/fish/completions/fish-lsp.fish
+# fish-lsp complete > $fish_complete_path[1]/fish-lsp.fish
+# fish-lsp complete > $__fish_user_data_dir[1]/fish-lsp.fish

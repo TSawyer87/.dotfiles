@@ -11,6 +11,15 @@ function set_win_title(){
 precmd_functions+=(set_win_title)
 
 
+# Allow Ctrl-z to toggle between suspend and resume
+function Resume {
+  fg
+  zle push-input
+  BUFFER=""
+  zle accept-line
+}
+zle -N Resume
+bindkey "^Z" Resume
 
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -296,6 +305,7 @@ alias hw='hwinfo --short'                          # Hardware Info
 alias big "expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
 alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
 alias ip='ip -color'
+alias zed='zeditor'
 
 # Get fastest mirrors
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
