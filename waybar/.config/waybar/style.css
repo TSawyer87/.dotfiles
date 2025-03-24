@@ -5,9 +5,8 @@
 }
 
 window#waybar {
-
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #ffffff;
+    background-color: rgba(16, 18, 36, 0.8); /* Dark background (Kanagawa base) */
+    color: #e1e1e1; /* Light gray text */
     transition-property: background-color;
     transition-duration: .5s;
     border-radius: 10px;
@@ -21,7 +20,7 @@ window#waybar.hidden {
     padding: 0px;
     margin: 4px 0 6px 0;
     background-color: transparent;
-    color: #ffffff;
+    color: #c8c0c0; /* Light gray */
     min-width: 36px;
 }
 
@@ -32,19 +31,18 @@ window#waybar.hidden {
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 15px ;
+    background: rgba(30, 34, 50, 0.5); /* Slightly lighter background */
+    border-radius: 15px;
 }
 
 #workspaces button.focused {
-    background-color: #bbccdd;
-    color: #323232;
+    background-color: #928374; /* Tan/brown focus */
+    color: #161824; /* Dark text */
 }
 
 #workspaces button.urgent {
-    color: red;
+    color: #e82424; /* Red urgent */
 }
-
 
 #clock,
 #battery,
@@ -64,13 +62,13 @@ window#waybar.hidden {
 #language {
     padding: 0px 3px;
     margin: 4px 3px 5px 3px;
-    color: #ffffff;
-    background-color:transparent;
+    color: #c8c0c0; /* Light gray */
+    background-color: transparent;
 }
 
 #window,
 #workspaces {
-    border : solid 1px white ;
+    border: solid 1px #5c5c5c; /* Darker border */
     border-radius: 100px;
 }
 
@@ -85,109 +83,108 @@ window#waybar.hidden {
 }
 
 #clock {
-    color: #90ee90;
+    color: #ff9e64; /* Orange clock */
 }
 
 #battery {
-    color: red;
+    color: #e82424; /* Red battery */
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #333333;
+        background-color: #e1e1e1; /* Light gray blink */
+        color: #161824; /* Dark text blink */
     }
 }
 
 #battery.critical:not(.charging) {
-    background-color: #ff0000;
-    color:#ff0000 ;
+    background-color: #e82424; /* Red critical battery */
+    color: #161824;
 }
 
 label:focus {
-    background-color: #000000;
+    background-color: #161824; /* Dark focus */
 }
 
 #cpu {
-    color: #ff0000;
+    /* color: #2e3257;  Blue cpu */ 
+    color: #007291;
 }
 
 #memory {
-    color: #00f98f;
+    color: #9ece6a; /* Green memory */
 }
 
 #backlight {
-    color: cyan;
+    color: #7aa2f7; /* Light blue backlight */
 }
 
 #network {
-    color: #ff9e64;
+    color: #627d9a; /* Light Blue network */
 }
 
 #network.disconnected {
-    color: #df3320;
+    color: #e82424; /* Red disconnected network */
 }
 
 #pulseaudio {
-    color: orange;
+    color: #ff9e64; /* Orange pulseaudio */
 }
 
 #pulseaudio.muted {
-    color: #a0a0a0;
+    color: #5c5c5c; /* Darker gray muted */
 }
 
 #custom-power {
-    color: #0db9d7;
+    color: #7aa2f7; /* Light blue power */
 }
 
 #custom-updates {
-    color: #b9f27c;
+    color: #9ece6a; /* Green updates */
 }
 
 #custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
+    background-color: #9ece6a; /* Green media */
+    color: #161824; /* Dark text media */
     min-width: 100px;
 }
 
 #custom-media.custom-spotify {
-    background-color: #66cc99;
+    background-color: #9ece6a; /* Green spotify */
 }
 
 #custom-media.custom-vlc {
-    background-color: #ffa000;
+    background-color: #ff9e64; /* Orange vlc */
 }
 
 #temperature {
-    color: #0db9d7;
+    color: #7aa2f7; /* Light blue temperature */
 }
 
 #temperature.critical {
-    background-color: #ff0000;
+    background-color: #e82424; /* Red critical temp */
 }
 
 #tray {
-    border : solid 1px blueviolet ;
-    border-radius : 30px;
+    border: solid 1px #89b4fa; /* Light blue tray border */
+    border-radius: 30px;
 }
 
 #idle_inhibitor {
-    background-color: #343434;
+    background-color: #303446; /* Darker idle inhibitor */
     border-radius: 15px;
 }
-#custom-keyboard-layout{
-    color : red;
-}
-#custom-separator {
-    color: yellow;
-}
-#custom-network_traffic{
-    color : orange;
+
+#custom-keyboard-layout {
+    color: #dfc5a4; /* Red keyboard layout */
 }
 
 #custom-separator {
-    color: #606060;
+    color: #5c5c5c; /* Darker separator */
     margin: 0 1px;
     padding-bottom: 5px;
 }
 
+#custom-network_traffic {
+    color: #ff9e64; /* Orange network traffic */
+}

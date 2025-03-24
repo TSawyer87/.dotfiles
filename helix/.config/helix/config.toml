@@ -34,9 +34,9 @@ select = "underline"
 
 [editor.soft-wrap]
 enable = true
-max-wrap = 10             # increase to reduce forced mid-word wrapping
-max-indent-retain = 14
-wrap-at-text-width = true
+max-wrap = 10 # increase to reduce forced mid-word wrapping
+# max-indent-retain = 14
+# wrap-at-text-width = true
 wrap-indicator = ""
 [editor.statusline]
 left = ["mode", "spinner"]
