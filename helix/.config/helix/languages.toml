@@ -101,7 +101,7 @@ name = "markdown"
 language-servers = ["marksman", "markdown-oxide", "scls"]
 formatter = {command = "dprint", args = ["fmt", "--stdin", "md"]}
 text-width = 80
-comment-tokens = ["-", "+", "*", "- [ ]", ">"]
+# comment-tokens = ["-", "+", "*", "- [ ]", ">"]
 
 [language.auto-pairs]
 '(' = ')'
@@ -147,8 +147,8 @@ root_dir = [".git", "*.toml"]
 
 [[language]]
 name = "nu"
-[language-server]
-nu-lsp = {command = "nu", args = ["--lsp"]}
+auto-format = true
+formatter = {command = "topiary", args = ["format", "--language", "nu"]}
 
 [[language]]
 name = "fish"

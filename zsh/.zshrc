@@ -358,7 +358,7 @@ eval "$(zoxide init zsh)"
 eval "$(mcfly init zsh)"
 
 
-export HELIX_RUNTIME=~/src/helix/runtime
+# export HELIX_RUNTIME=~/src/helix/runtime
 export MANPAGER='nvim +Man!'
 export VISUAL=hx
 export EDITOR=hx
